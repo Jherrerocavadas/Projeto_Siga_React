@@ -61,96 +61,92 @@ export const GridHorarioAulas = ({ labelsHorarioAula }) => {
 
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem cadastrada (visualização da grade do aluno)
-export function GridDisciplinas({ diaDisciplina, disciplinas }) { 
+export function GridDisciplinas({ diaDisciplina, qtdAulasDias, disciplinas, semestre }) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
   return (
+    //ColunaDiaAula vai criar a div de colunas
     diaDisciplina.map((value, index) =>
-      <ColunaDiaAula 
-      idColuna={value}//Dia da semana
-      disciplinas={disciplinas}/>
+      <ColunaDiaAula
+        idColuna={value.toUpperCase()}//Dia da semana
+        qtdAulasDias = {qtdAulasDias}
+        disciplinas={disciplinas}
+        semestre={semestre} />
     )
 
   )
 }
 
+//Verifica se um campo de um objeto dentro de um array é igual a algum valor
+function verifyArrObj(arr, key, value) {
+  if(arr.length > 0)
+  {
+    var comparations = []
+    arr.forEach((obj) => {
+      // console.log("OBJ: "+ obj[key] + "; value: " + value + "; comp: " + (obj.numeroAula == value))
+
+      comparations.push(obj[key] == value);
+    });
+    // console.log(comparations.includes(true))
+    return comparations.includes(true);
+  }
+  return false;
+}
+
+
+
 
 // Cria a coluna de aulas de determinado dia (Aulas cadastradas).
 // O identificador de cada campo da coluna é o dia da semana da coluna + a posição do identificador
-export const ColunaDiaAula = ({idColuna, disciplinas}) => {
+export function ColunaDiaAula ({ idColuna, qtdAulasDias, disciplinas, semestre }) {
 
-  //[
-    //   {
-    //     id: 1,
-    //     faculdade: {
-    //       id: 1,
-    //       codFaculdade: "FAT128",
-    //       nomeFaculdade: "Fatec Carapicuíba",
-    //       siglaFaculdade: "FAT128",
-    //       cidade: "Carapicuíba",
-    //       endereco: "Rua Francisco Pignatari",
-    //     },
-    //     curso: {
-    //       id: 1,
-    //       nomeCurso: "Design de Mídias Digitais",
-    //       siglaCurso: "DMD",
-    //       qtdSemestres: 6,
-    //     },
-    //     disciplina: {
-    //       id: 1,
-    //       codDisciplina: "MAT001",
-    //       nomeDisciplina: "Matemática Discreta",
-    //       siglaDisciplina: "MD",
-    //       quantidadeAulas: 4,
-    //       isDisciplinaEspecial: false,
-    //     },
-    //     horaAula1: {
-    //       id: 1,
-    //       periodo: "MANHA",
-    //       numeroAula: 1,
-    //       inicioAula: "7h40",
-    //       fimAula: "8h30",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula2: {
-    //       id: 2,
-    //       periodo: "MANHA",
-    //       numeroAula: 2,
-    //       inicioAula: "8h30",
-    //       fimAula: "9h20",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula3: {
-    //       id: 4,
-    //       periodo: "MANHA",
-    //       numeroAula: 4,
-    //       inicioAula: "9h30",
-    //       fimAula: "10h20",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula4: {
-    //       id: 5,
-    //       periodo: "MANHA",
-    //       numeroAula: 5,
-    //       inicioAula: "10h20",
-    //       fimAula: "11h10",
-    //       isIntervalo: false,
-    //     },
-    //     semestre: 1,
-    //     diaDaSemana: "SEGUNDA",
-    //   },
-    // ];
-  
+  var disciplinasComHoraAula = []
 
-  
-  return (
-   <div>
-     {disciplinas.map((value, index) =>
-        <MateriaField
-          key={idColuna + index}
-          label={value.disciplina.nomeDisciplina.length > 12? value.disciplina.siglaDisciplina: value.disciplina.nomeDisciplina} />
-      )}
-   </div>
-  )
+  disciplinas.forEach(disciplinaCurso => {
+    if (!disciplinaCurso.disciplina.isDisciplinaEspecial) {
+      disciplinasComHoraAula.push(disciplinaCurso)
+    }
+  });
+
+
+  var materiasField = []
+
+  for (let linhasAula = 1; linhasAula <= qtdAulasDias; linhasAula++) {
+
+    var label = ""
+    var bgColor = "#0000ff"
+
+    if(linhasAula == 3 || linhasAula == 6){
+      label = "Intervalo"
+    }
+    else{
+      disciplinasComHoraAula.map((value, index) => {
+      
+            if (value.diasDeAula.includes(idColuna) && verifyArrObj(value.horasAula, 'numeroAula', linhasAula) &&
+            value.semestre == semestre)
+             {
+              label= value.disciplina.nomeDisciplina.length > 12 ? value.disciplina.siglaDisciplina : value.disciplina.nomeDisciplina
+              bgColor = (value.disciplina.corDisciplina != null && value.disciplina.corDisciplina != undefined) ? value.disciplina.corDisciplina : bgColor  
+              
+            }
+          }
+      )
+
+    }
+
+    materiasField.push( 
+      <MateriaField
+        key={idColuna + linhasAula}
+        label={label}
+        bgColor={bgColor} />)
+    
+  }
+return(
+  <div>
+    {materiasField}
+       {/* <LinhasAulas
+       idColuna={idColuna}></LinhasAulas> */}
+    </div>
+)
 }
 
 
@@ -159,13 +155,13 @@ export const ColunaDiaAula = ({idColuna, disciplinas}) => {
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem disponível para matricular
 // No caso da visualização da Hora_Aula do aluno, vai puxar as disciplinas que o aluno já tem cadastrado
-export function GridDisciplinasMatricula({ diaDisciplina, periodos }) { 
+export function GridDisciplinasMatricula({ diaDisciplina, periodos }) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
   return (
     diaDisciplina.map((value, index) =>
-      <ColunaDiaAula 
-      idColuna={value}//Dia da semana
-      periodos={periodos}/>
+      <ColunaDiaAula
+        idColuna={value}//Dia da semana
+        periodos={periodos} />
     )
 
   )
@@ -174,15 +170,15 @@ export function GridDisciplinasMatricula({ diaDisciplina, periodos }) {
 
 // Cria a coluna de aulas de determinado dia.
 // O identificador de cada campo da coluna é o dia da semana da coluna + a posição do identificador
-export const ColunaDiaAulaMatricula = ({idColuna, periodos}) => {
+export const ColunaDiaAulaMatricula = ({ idColuna, periodos }) => {
   return (
-   <div>
-     {periodos.map((value, index) =>
+    <div>
+      {periodos.map((value, index) =>
         <MateriaField
           key={idColuna + index}
           label={value.label} />
       )}
-   </div>
+    </div>
   )
 }
 

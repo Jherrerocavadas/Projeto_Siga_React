@@ -32,7 +32,7 @@ export const CabecalhoAula = ({horarioUsuario, diasSemana}) => {
 // Vai montar cada caixa individual do cabeçalho. Uma dessas caixas informará o período do aluno.
 export const TituloColuna = ({id, label}) => {
   return (
-    <div class="hora_aula days">
+    <div key={id} class="hora_aula days">
     <p>{label}</p>
     </div>
   )

@@ -13,12 +13,15 @@ export function Matricula({ }) {
   const horarioUsuario = "Manhã"; //Enum Periodo.getnomePeriodo Só pra ficar bonitinho a label
   const siglaCurso = "DMD"
   const codFaculdade = "FAT128"
+  const semestre = 4
   
   const [diasSemana, setDiasSemana] = useState([])
   const [horarioAula, setHorarioAula] = useState([])
   const [disciplinasCursos, setDisciplinasCursos] = useState([])
 
   const [disciplinas, setDisciplinas] = useState([])
+
+  // var disciplinas = []
 
   useEffect(() => {
     getLabelsDiasSemana().then((response) => {
@@ -40,30 +43,33 @@ export function Matricula({ }) {
   useEffect(() => {
     listarDisciplinasPorCurso(false, siglaCurso, codFaculdade).then((response) => {
       setDisciplinasCursos(response)
+      var tempDisciplinas = []
+      response.forEach(disciplinaCurso => {
+        tempDisciplinas.push(disciplinaCurso.disciplina) 
+        console.warn(tempDisciplinas)
+      });
+      setDisciplinas(tempDisciplinas)
            
     }).catch((error) => {
       console.log("Erro setar disciplinas Cursos: " + error)
     })
   }, {})
-
-  useEffect(() => {
-    disciplinasCursos.forEach(disciplinaCurso => {
-      setDisciplinas(disciplinaCurso.disciplina)
-      console.warn(disciplinas)
-    });
-  }, {disciplinasCursos})
-  
-  
   
   // Estrutura da tela
 
   /*
   container
-    Cabeçalho (Horário - {periodo.getNomePeriodo}, Segunda, Terça, ...)
-    LabelHorariosAula (7h40-8h30, ...)
-    GridHorarioAula (Matemática Discreta, IA, ...) Vai ser clickável, permitindo ao usuário setar a matéria.
-    Se setar uma matéria, deve setar automáticamente essa matéria para os outros dias também
+    Cabeçalho (Horário - {periodo.getNomePeriodo}, Segunda, Terça, ...) -> OK
+    LabelHorariosAula (7h40-8h30, ...) -> OK
+    GridHorarioAula (Matemática Discreta, IA, ...) Vai retornar a matéria que o usuário tem cadastrado para aquele horário. -> Andando
   
+    GridDisciplinas (Matricula) (Matemática Discreta, IA, ...) Vai ser clicável, permitindo ao usuário setar a matéria.
+    Se setar uma matéria, deve setar automáticamente essa matéria para os outros dias também
+
+    SelecaoMateriaField (Matricula) -> Vai conter as matérias so dia que o usuário selecionou, permitindo que
+    ele se matricule nela para o dia.
+
+    Também terá as matérias especiais, onde ao clicar, ele já registra na matrícula automático
   
   */
 
@@ -81,7 +87,9 @@ export function Matricula({ }) {
 
         <GridDisciplinas
         diaDisciplina={diasSemana}
-        disciplinas={disciplinasCursos}/>
+        qtdAulasDias={horarioAula.length}
+        disciplinas={disciplinasCursos}
+        semestre={semestre}/>
       </div>
 
       <SelecaoMateriaField disciplinas={disciplinas}/>
