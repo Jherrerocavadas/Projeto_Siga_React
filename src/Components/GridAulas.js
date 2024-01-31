@@ -67,7 +67,8 @@ export function GridDisciplinas({ diaDisciplina, qtdAulasDias, disciplinas, seme
     //ColunaDiaAula vai criar a div de colunas
     diaDisciplina.map((value, index) =>
       <ColunaDiaAula
-        idColuna={value.toUpperCase()}//Dia da semana
+        // idColuna={value.toUpperCase()}//Dia da semana
+        idColuna={value.cod}//Dia da semana
         qtdAulasDias = {qtdAulasDias}
         disciplinas={disciplinas}
         semestre={semestre} />
@@ -120,7 +121,10 @@ export function ColunaDiaAula ({ idColuna, qtdAulasDias, disciplinas, semestre }
     }
     else{
       disciplinasComHoraAula.map((value, index) => {
+
+
       
+        
             if (value.diasDeAula.includes(idColuna) && verifyArrObj(value.horasAula, 'numeroAula', linhasAula) &&
             value.semestre == semestre)
              {

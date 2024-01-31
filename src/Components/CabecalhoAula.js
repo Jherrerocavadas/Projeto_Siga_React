@@ -22,7 +22,7 @@ export const CabecalhoAula = ({horarioUsuario, diasSemana}) => {
     <div class="titles">
     <TituloColuna label= {"Horario - " + horarioUsuario} />
 
-    {diasSemana.map((value, index) => <TituloColuna id={index} label={value} />)}
+    {diasSemana.map((value, index) => <TituloColuna id={index} label={value.valor} />)}
 
   </div>  
   )
