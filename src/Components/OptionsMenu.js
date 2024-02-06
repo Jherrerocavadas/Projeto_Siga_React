@@ -3,7 +3,6 @@ import ClickableField from './ClickableField'
 import DropdownSelectField from './DropdownSelectField';
 
 export default function OptionsMenu({ funcionalidades }) {
-    // const valuesTeste = [6, "NOITE"]
     var opcoes = []
     funcionalidades.forEach((funcionalidade, index) => {
         

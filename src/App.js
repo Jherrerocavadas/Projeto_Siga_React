@@ -1,15 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import { Matricula } from './Pages/Matricula';
+import { HorarioAula } from './Pages/HorarioAula';
 
 function App() {
 
 
   return (
     <div>
-      <Matricula>
-        
-      </Matricula>
+      <HorarioAula></HorarioAula>
     </div>
   );
 }
