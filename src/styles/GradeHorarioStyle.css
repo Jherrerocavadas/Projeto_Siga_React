@@ -14,7 +14,7 @@
   --button_hovered:green; */
 
 
-  --materia_field_bg_color: null;
+  --materia_field_bg_color: aqua;
   --filter_field_bg_color: null;
   --container_grid_aulas: darkblue;
   --hora_aula_field: blue;
@@ -38,11 +38,17 @@
 
 
 .Materias-especiais-field{
-  background-color: var(--materia_field_bg_color);
-  display: flow-root;
-  min-height: 10vh;
+
+
+  /* display: flow-root; */
+  /* min-height: 100vh; */
+
+  background-color: yellow;
+  display: flex;
+  /* min-height: 10vh; */
   width: 88vw;
   margin: auto;
+  margin-top: 10px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
@@ -120,7 +126,9 @@
 .dropbox{
   /* display: flex; */
   background-color: var(--hora_aula_field);
-  
+  padding-left: 5px;
+  /* border-radius: 15px; */
+
   height: 5vh;
   width: 13vw;
   margin: 10px 11px 10px 11px;

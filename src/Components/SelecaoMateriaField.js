@@ -30,9 +30,7 @@ export const SelecaoMateriaField = ({ aulaSelecionada, disciplinas }) => {
         </div>
 
         <div>
-          <div class="Materias-especiais-field">
-            <MateriasEspeciaisField disciplinasEspeciais={disciplinasEspeciais} />
-          </div>
+            <MateriasEspeciaisField disciplinasEspeciais={disciplinasEspeciais} /> 
 
         </div>
       </div>
@@ -43,12 +41,20 @@ export const SelecaoMateriaField = ({ aulaSelecionada, disciplinas }) => {
 
 
 
-export function MateriasEspeciaisField({ disciplinasEspeciais }) {
-  return disciplinasEspeciais.map((value, index) => <MateriaField
+export function MateriasEspeciaisField({ disciplinasEspeciais, action }) {
+
+  if(disciplinasEspeciais){
+    
+    return (<div class="Materias-especiais-field">
+    
+    {disciplinasEspeciais.map((value, index) => <MateriaField
     key={value.codDisciplina}
     label={value.nomeDisciplina.length > 12 ? value.siglaDisciplina : value.nomeDisciplina}
     isClickable={true}
     action={(e) => {
       alert("Disciplina Registrada!")
-    }} />)
+    }} />)}
+    </div>)
+  }
+  
 }
