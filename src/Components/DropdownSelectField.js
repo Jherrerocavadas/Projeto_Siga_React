@@ -11,9 +11,11 @@ export default function DropdownSelectField({key, dropboxOptions, placeholder="p
   
   
   
-  // FIX: setter do período tá meio bugado. dá undefined no label.
+  // DONE: setter do período tá meio bugado. dá undefined no label.
+  // Tava dando undefined pq ele puxava o campo value e a label referenciava o campo valor, que só existia no placeholder
     return (
     <select class="dropbox" key={key} onChange={(e) => {
+      console.log(dropboxOptions[0].object? dropboxOptions[e.target.value].object : e.target.value)
         setter(dropboxOptions[0].object? dropboxOptions[e.target.value].object : e.target.value)}}>
         <option value= {placeholderValue? placeholderValue: ""} key={key + 0}>{placeholder}</option>
         {dropboxOptionElements}

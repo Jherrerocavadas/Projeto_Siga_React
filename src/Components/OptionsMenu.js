@@ -41,15 +41,6 @@ export default function OptionsMenu({ funcionalidades }) {
 
 
 
-
-
-    //   <DropdownSelectField
-    //   masterKey={"dpd002"}
-    //   dropboxOptions={dropdownPeriodo}
-    //   placeholder={"Selecione um período: "}
-    //   placeholderValue={"MANHA"}
-    //   setter={setPeriodo}/>
-
     return (
         <div class="Filters-field">
             {opcoes}

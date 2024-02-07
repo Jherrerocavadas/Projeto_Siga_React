@@ -20,6 +20,9 @@ export const api = axios.create({
 
 // }
 
+export const diasSemanaPlaceholder = [{ valor: "Segunda", cod: "SEGUNDA" }, { valor: "Terça", cod: "TERCA" }, { valor: "Quarta", cod: "QUARTA" }, { valor: "Quinta", cod: "QUINTA" }, { valor: "Sexta", cod: "SEXTA" }, { valor: "Sábado", cod: "SABADO" }]
+
+
 export async function getLabelsDiasSemana() {
     return api.get('/diasSemana/teste')
         .then(async (response) => {
@@ -27,7 +30,8 @@ export async function getLabelsDiasSemana() {
             return response.data
         })
         .catch((error) => {
-            console.log(error)
+            console.log("Get Labels de dias da semana" + error)
+            return diasSemanaPlaceholder
         })
 
 }

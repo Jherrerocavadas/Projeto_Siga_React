@@ -18,6 +18,7 @@ export const CabecalhoAula = ({horarioUsuario, diasSemana}) => {
 //         })
 //   }, {}) 
 
+if(diasSemana != [] || diasSemana !== null || diasSemana !== undefined){
   return (
     <div class="titles">
     <TituloColuna label= {"Horario - " + horarioUsuario} />
@@ -26,6 +27,8 @@ export const CabecalhoAula = ({horarioUsuario, diasSemana}) => {
 
   </div>  
   )
+
+}
 }
 
 
