@@ -1,6 +1,7 @@
 import React from 'react'
 import ClickableField from './ClickableField'
 import DropdownSelectField from './DropdownSelectField';
+import { TextBox } from './TextBox';
 
 export default function OptionsMenu({ funcionalidades }) {
     var opcoes = []
@@ -25,6 +26,15 @@ export default function OptionsMenu({ funcionalidades }) {
                     dropboxOptions={funcionalidade.value}
                     placeholder={funcionalidade.label}
                     setter={funcionalidade.action}/>
+            )
+        }
+
+        else if(funcionalidade.type == "Text"){
+            opcoes.push(
+                <TextBox
+                 key={funcionalidade.key}
+                 label={funcionalidade.label + funcionalidade.value}
+                />
             )
         }
     });
