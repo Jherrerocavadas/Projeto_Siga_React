@@ -14,7 +14,8 @@
   --button_hovered:green; */
 
 
-  --materia_field_bg_color: aqua;
+  --materia_field_bg_color: null;
+  --materia_especial_field_bg_color:skyblue;
   --filter_field_bg_color: null;
   --container_grid_aulas: darkblue;
   --hora_aula_field: blue;
@@ -38,21 +39,20 @@
 
 
 .Materias-especiais-field{
-
-
-  /* display: flow-root; */
-  /* min-height: 100vh; */
-
-  background-color: yellow;
+  background-color: var(--materia_especial_field_bg_color);
   display: flex;
-  /* min-height: 10vh; */
-  width: 88vw;
+  min-height: 10vh;
+  width: 86vw;
   margin: auto;
-  margin-top: 10px;
+  margin-left: 1.5vw;
+  /* padding-left: 10px; */
+  margin-top: 5px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  
+
 }
 
 .Materia-disponivel{
@@ -78,7 +78,7 @@
   border-style: none;
   height: 6vh;
   width: 10.8vw;
-  margin: 10px 8px 10px 8px;
+  margin: 10px 11px 10px 11px;
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
@@ -137,6 +137,16 @@
   /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
 }
 
+.Text-Box{
+  display: flex;
+  border-radius: 5px;
+  height: 6vh;
+  width: 10.8vw;
+  margin: 10px 11px 10px 11px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
 
 /* TODO: verificar esses estilos */
 
@@ -197,7 +207,7 @@ h1{
 .container_columns{
   display:inline-flex;
   position: relative;
-  left: 0.99vw;
+  padding-left: 10px;
 }
 /* 
 .columns{

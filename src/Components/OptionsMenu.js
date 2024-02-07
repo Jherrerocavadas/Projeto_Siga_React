@@ -1,6 +1,7 @@
 import React from 'react'
 import ClickableField from './ClickableField'
 import DropdownSelectField from './DropdownSelectField';
+import { TextBox } from './TextBox';
 
 export default function OptionsMenu({ funcionalidades }) {
     var opcoes = []
@@ -27,18 +28,18 @@ export default function OptionsMenu({ funcionalidades }) {
                     setter={funcionalidade.action}/>
             )
         }
+
+        else if(funcionalidade.type == "Text"){
+            opcoes.push(
+                <TextBox
+                 key={funcionalidade.key}
+                 label={funcionalidade.label + funcionalidade.value}
+                />
+            )
+        }
     });
 
 
-
-
-
-    //   <DropdownSelectField
-    //   masterKey={"dpd002"}
-    //   dropboxOptions={dropdownPeriodo}
-    //   placeholder={"Selecione um período: "}
-    //   placeholderValue={"MANHA"}
-    //   setter={setPeriodo}/>
 
     return (
         <div class="Filters-field">
