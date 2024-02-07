@@ -24,11 +24,11 @@ export function HorarioAula({ }) {
 
   const [diasSemana, setDiasSemana] = useState(diasSemanaPlaceholder)
   const [horarioAula, setHorarioAula] = useState(horarioAulaPlaceholder)
-  const [disciplinasCursos, setDisciplinasCursos] = useState(disciplinaCursoPlaceholder)
+  const [disciplinasCursos, setDisciplinasCursos] = useState(null)
 
-  const [disciplinas, setDisciplinas] = useState(disciplinaPlaceholder)
+  const [disciplinas, setDisciplinas] = useState(null)
 
-  const [disciplinasEspeciais, setDisciplinasEspeciais] = useState([])
+  const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null)
 
   const dropdownSemestre = []
 

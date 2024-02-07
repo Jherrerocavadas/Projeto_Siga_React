@@ -103,7 +103,8 @@ export function ColunaDiaAula({
   disciplinas,
   semestre,
 }) {
-  if (disciplinas != [] || disciplinas != null || disciplinas != undefined) {
+  if (disciplinas != [] && disciplinas !== null && disciplinas !== undefined) {
+
     var disciplinasComHoraAula = [];
 
     disciplinas.forEach((disciplinaCurso) => {

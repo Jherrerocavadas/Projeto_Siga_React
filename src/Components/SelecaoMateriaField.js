@@ -53,7 +53,9 @@ export function MateriasEspeciaisField({ disciplinasEspeciais, action, isClickab
       
     
   }
-    return (
+
+  if(disciplinasEspeciais !== null && disciplinasEspeciais !== undefined)
+   { return (
       <div class="Materias-especiais-field">
         {disciplinasEspeciais.map((value, index) => (
           <MateriaField
@@ -68,5 +70,5 @@ export function MateriasEspeciaisField({ disciplinasEspeciais, action, isClickab
           />
         ))}
       </div>
-    );   
+    );   }
 }
