@@ -1,50 +1,74 @@
-import React, { useState } from 'react'
-import { MateriaField } from './MateriaField'
+import React from "react";
+import { MateriaField } from "./MateriaField";
 
-export const SelecaoMateriaField = ({aulaSelecionada, disciplinas}) => {
- const count = 2
-const [selectedMateria, SetSelectedMateria] = useState("ss")
+export const SelecaoMateriaField = ({ value, disciplinas, isClickable, action }) => {
+  // const count = 2;
+  // const [selectedMateria, SetSelectedMateria] = useState("ss");
 
-if(disciplinas != undefined || disciplinas != null || disciplinas != []){
-  var disciplinasEspeciais = []
+  // TODO: inserir ações para registrar matéria
+  function handleAction(e) {
+    if(action){
+      action(e)
+      alert("Disciplina Registrada!");
+    }
+    else{
+      alert("Sem ação para realizar!");
+    }
+    
+  }
 
-disciplinas.forEach(disciplina => {
-  if(!disciplina.isDisciplinaEspecial)
-  disciplinasEspeciais.push(disciplina)
-});
 
-  return (
-    <div>
+  if (disciplinas !== undefined || disciplinas !== null || disciplinas != []) {
+    return (
       <div class="Selecao-materia-field">
-        {disciplinas.map((value, index) => <MateriaField
-          key={value.codDisciplina}
-          label={value.nomeDisciplina.length > 12 ? value.siglaDisciplina : value.nomeDisciplina}
-          isClickable={true}
-          action={(e) => {
-            SetSelectedMateria(value.codDisciplina)
-          }} />)}
+        {disciplinas.map((value, index) => {
+          if (value.isDisciplinaEspecial) {
+            <MateriaField
+              key={value.codDisciplina}
+              label={
+                value.nomeDisciplina.length > 12
+                  ? value.siglaDisciplina
+                  : value.nomeDisciplina
+              }
+              isClickable={isClickable}
+              action={handleAction}
+            />;
+          }
+        })}
       </div>
+    );
+  }
+};
 
-      <div>
-        <div class="Materias-especiais-field">
-          <MateriasEspeciaisField disciplinasEspeciais={disciplinasEspeciais}/>
-        </div>
+export function MateriasEspeciaisField({ disciplinasEspeciais, action, isClickable }) {
 
+  function handleAction(e){
+    if(action){
+      action(e)
+      alert("Disciplina Registrada!");
+    }
+    else{
+      alert("Sem ação para realizar!");
+    }
+      
+    
+  }
+
+  if(disciplinasEspeciais !== null && disciplinasEspeciais !== undefined)
+   { return (
+      <div class="Materias-especiais-field">
+        {disciplinasEspeciais.map((value, index) => (
+          <MateriaField
+            key={value.codDisciplina}
+            label={
+              value.nomeDisciplina.length > 12
+                ? value.siglaDisciplina
+                : value.nomeDisciplina
+            }
+            isClickable={isClickable}
+            action={handleAction}
+          />
+        ))}
       </div>
-    </div>
-  )
-}
-}
-
-
-
-
-export function MateriasEspeciaisField({disciplinasEspeciais}) {
-  return disciplinasEspeciais.map((value, index) => <MateriaField
-  key={value.codDisciplina}
-  label={value.nomeDisciplina.length > 12? value.siglaDisciplina: value.nomeDisciplina}
-  isClickable={true}
-  action={(e) =>{
-    alert("Disciplina Registrada!")
-  }}/>)
+    );   }
 }

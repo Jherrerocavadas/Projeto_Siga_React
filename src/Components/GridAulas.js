@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-import "../styles/GradeHorarioStyle.css"
+import "../styles/GradeHorarioStyle.css";
 
-import { getLabelsHorarioAula } from '../utils/HorarioAula/horarioAulaController';
-import { MateriaField } from './MateriaField';
-import { getLabelsDiasSemana } from '../utils/utils';
-
-
-
+import { getLabelsHorarioAula } from "../utils/HorarioAula/horarioAulaController";
+import { MateriaField } from "./MateriaField";
+import { getLabelsDiasSemana } from "../utils/utils";
 
 //Vai montar o texto do horário das aulas de acordo com o período que o aluno estuda
-export const GridHorarioAulas = ({ labelsHorarioAula }) => {
-
+export function GridHorarioAulas({ labelsHorarioAula }) {
   // const [labelsHorarioAula, setLabelsHorarioAula] = useState([])
 
   // useEffect(() => {
@@ -22,167 +18,167 @@ export const GridHorarioAulas = ({ labelsHorarioAula }) => {
   //   })
   // }, {})
 
+  // if (
+  //   labelsHorarioAula == null ||
+  //   labelsHorarioAula == undefined ||
+  //   labelsHorarioAula == []
+  // ) {
+  //   return (
+  //     <div>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //       <p class="hora_aula"></p>
+  //     </div>
+  //   );
+  // }
 
-  if (labelsHorarioAula == null || labelsHorarioAula == undefined || labelsHorarioAula.length == 0) {
-    return (
-      <div>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-        <p class="hora_aula"></p>
-      </div>
-    )
-  }
-
-  if (labelsHorarioAula != null || labelsHorarioAula != undefined || labelsHorarioAula?.length > 0) {
-
-    labelsHorarioAula.forEach(horarioAula => {
+  if (
+    labelsHorarioAula != null ||
+    labelsHorarioAula != undefined ||
+    labelsHorarioAula != []
+  ) {
+    labelsHorarioAula.forEach((horarioAula) => {
       if (horarioAula.isIntervalo) {
-        horarioAula.label = "Intervalo"
+        horarioAula.label = "Intervalo";
       }
     });
 
     return (
       <div>
-        {labelsHorarioAula.map((value, index) =>
-          <MateriaField
-            key={index}
-            label={value.label}
-          />)}
+        {labelsHorarioAula.map((value, index) => (
+          <MateriaField key={index} label={value.label} />
+        ))}
       </div>
-    )
+    );
   }
-
-}
-
+};
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem cadastrada (visualização da grade do aluno)
-export function GridDisciplinas({ diaDisciplina, disciplinas }) { 
+export function GridDisciplinas({
+  diaDisciplina,
+  qtdAulasDias,
+  disciplinas,
+  semestre,
+}) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
   return (
-    diaDisciplina.map((value, index) =>
-      <ColunaDiaAula 
-      idColuna={value}//Dia da semana
-      disciplinas={disciplinas}/>
-    )
-
-  )
+    //ColunaDiaAula vai criar a div de colunas
+    diaDisciplina.map((value, index) => (
+      <ColunaDiaAula
+        // idColuna={value.toUpperCase()}//Dia da semana
+        idColuna={value.cod} //Dia da semana
+        qtdAulasDias={qtdAulasDias}
+        disciplinas={disciplinas}
+        semestre={semestre}
+      />
+    ))
+  );
 }
 
+//Verifica se um campo de um objeto dentro de um array é igual a algum valor
+function verifyArrObj(arr, key, value) {
+  if (arr.length > 0) {
+    var comparations = [];
+    arr.forEach((obj) => {
+      // console.log("OBJ: "+ obj[key] + "; value: " + value + "; comp: " + (obj.numeroAula == value))
+
+      comparations.push(obj[key] == value);
+    });
+    // console.log(comparations.includes(true))
+    return comparations.includes(true);
+  }
+  return false;
+}
 
 // Cria a coluna de aulas de determinado dia (Aulas cadastradas).
 // O identificador de cada campo da coluna é o dia da semana da coluna + a posição do identificador
-export const ColunaDiaAula = ({idColuna, disciplinas}) => {
+export function ColunaDiaAula({
+  idColuna,
+  qtdAulasDias,
+  disciplinas,
+  semestre,
+}) {
+  if (disciplinas != [] && disciplinas !== null && disciplinas !== undefined) {
 
-  //[
-    //   {
-    //     id: 1,
-    //     faculdade: {
-    //       id: 1,
-    //       codFaculdade: "FAT128",
-    //       nomeFaculdade: "Fatec Carapicuíba",
-    //       siglaFaculdade: "FAT128",
-    //       cidade: "Carapicuíba",
-    //       endereco: "Rua Francisco Pignatari",
-    //     },
-    //     curso: {
-    //       id: 1,
-    //       nomeCurso: "Design de Mídias Digitais",
-    //       siglaCurso: "DMD",
-    //       qtdSemestres: 6,
-    //     },
-    //     disciplina: {
-    //       id: 1,
-    //       codDisciplina: "MAT001",
-    //       nomeDisciplina: "Matemática Discreta",
-    //       siglaDisciplina: "MD",
-    //       quantidadeAulas: 4,
-    //       isDisciplinaEspecial: false,
-    //     },
-    //     horaAula1: {
-    //       id: 1,
-    //       periodo: "MANHA",
-    //       numeroAula: 1,
-    //       inicioAula: "7h40",
-    //       fimAula: "8h30",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula2: {
-    //       id: 2,
-    //       periodo: "MANHA",
-    //       numeroAula: 2,
-    //       inicioAula: "8h30",
-    //       fimAula: "9h20",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula3: {
-    //       id: 4,
-    //       periodo: "MANHA",
-    //       numeroAula: 4,
-    //       inicioAula: "9h30",
-    //       fimAula: "10h20",
-    //       isIntervalo: false,
-    //     },
-    //     horaAula4: {
-    //       id: 5,
-    //       periodo: "MANHA",
-    //       numeroAula: 5,
-    //       inicioAula: "10h20",
-    //       fimAula: "11h10",
-    //       isIntervalo: false,
-    //     },
-    //     semestre: 1,
-    //     diaDaSemana: "SEGUNDA",
-    //   },
-    // ];
-  
+    var disciplinasComHoraAula = [];
 
-  
-  return (
-   <div>
-     {disciplinas.map((value, index) =>
+    disciplinas.forEach((disciplinaCurso) => {
+      if (!disciplinaCurso.disciplina.isDisciplinaEspecial) {
+        disciplinasComHoraAula.push(disciplinaCurso);
+      }
+    });
+
+    var materiasField = [];
+
+    for (let linhasAula = 1; linhasAula <= qtdAulasDias; linhasAula++) {
+      var label = "";
+      var bgColor = "#0000ff";
+
+      if (linhasAula == 3 || linhasAula == 6) {
+        label = "Intervalo";
+      } else {
+        disciplinasComHoraAula.map((value, index) => {
+          if (
+            value.diasDeAula.includes(idColuna) &&
+            verifyArrObj(value.horasAula, "numeroAula", linhasAula) &&
+            value.semestre == semestre
+          ) {
+            label =
+              value.disciplina.nomeDisciplina.length > 12
+                ? value.disciplina.siglaDisciplina
+                : value.disciplina.nomeDisciplina;
+            bgColor =
+              value.disciplina.corDisciplina != null &&
+              value.disciplina.corDisciplina != undefined
+                ? value.disciplina.corDisciplina
+                : bgColor;
+          }
+        });
+      }
+
+      materiasField.push(
         <MateriaField
-          key={idColuna + index}
-          label={value.disciplina.nomeDisciplina.length > 12? value.disciplina.siglaDisciplina: value.disciplina.nomeDisciplina} />
-      )}
-   </div>
-  )
+          key={idColuna + linhasAula}
+          label={label}
+          bgColor={bgColor}
+        />
+      );
+    }
+    return (
+      <div>
+        {materiasField}
+        {/* <LinhasAulas
+       idColuna={idColuna}></LinhasAulas> */}
+      </div>
+    );
+  }
 }
-
-
-
-
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem disponível para matricular
 // No caso da visualização da Hora_Aula do aluno, vai puxar as disciplinas que o aluno já tem cadastrado
-export function GridDisciplinasMatricula({ diaDisciplina, periodos }) { 
+export function GridDisciplinasMatricula({ diaDisciplina, periodos }) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
-  return (
-    diaDisciplina.map((value, index) =>
-      <ColunaDiaAula 
-      idColuna={value}//Dia da semana
-      periodos={periodos}/>
-    )
-
-  )
+  return diaDisciplina.map((value, index) => (
+    <ColunaDiaAula
+      idColuna={value} //Dia da semana
+      periodos={periodos}
+    />
+  ));
 }
-
 
 // Cria a coluna de aulas de determinado dia.
 // O identificador de cada campo da coluna é o dia da semana da coluna + a posição do identificador
-export const ColunaDiaAulaMatricula = ({idColuna, periodos}) => {
+export const ColunaDiaAulaMatricula = ({ idColuna, periodos }) => {
   return (
-   <div>
-     {periodos.map((value, index) =>
-        <MateriaField
-          key={idColuna + index}
-          label={value.label} />
-      )}
-   </div>
-  )
-}
-
+    <div>
+      {periodos.map((value, index) => (
+        <MateriaField key={idColuna + index} label={value.label} />
+      ))}
+    </div>
+  );
+};

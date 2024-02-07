@@ -3,10 +3,23 @@
 }
 
 :root{
-  --materia_field_bg_color: aqua;
+
+  /* Valores de teste */
+  /* --materia_field_bg_color: aqua;
+  --filter_field_bg_color: #922922;
   --container_grid_aulas: darkblue;
   --hora_aula_field: blue;
   --hora_aula_label_field: green;
+  --button_base_color:crimson;
+  --button_hovered:green; */
+
+
+  --materia_field_bg_color: null;
+  --materia_especial_field_bg_color:skyblue;
+  --filter_field_bg_color: null;
+  --container_grid_aulas: darkblue;
+  --hora_aula_field: blue;
+  --hora_aula_label_field: darkgreen;
   --button_base_color:crimson;
   --button_hovered:green;
 } 
@@ -26,15 +39,20 @@
 
 
 .Materias-especiais-field{
-  background-color: var(--materia_field_bg_color);
-  display: flow-root;
+  background-color: var(--materia_especial_field_bg_color);
+  display: flex;
   min-height: 10vh;
-  width: 88vw;
+  width: 86vw;
   margin: auto;
+  margin-left: 1.5vw;
+  /* padding-left: 10px; */
+  margin-top: 5px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  
+
 }
 
 .Materia-disponivel{
@@ -60,7 +78,7 @@
   border-style: none;
   height: 6vh;
   width: 10.8vw;
-  margin: 10px 8px 10px 8px;
+  margin: 10px 11px 10px 11px;
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
@@ -78,7 +96,55 @@
 }
 
 
+.Filters-field{
+  background-color: var(--filter_field_bg_color);
+  display:flex;
+  min-height: 10vh;
+  width: 88vw;
+  margin: auto;
+  padding-top: 5px;
+  padding-bottom: -5px;
+  align-items: center;
+  /* justify-content: center; */
+  border-radius: 15px;
+  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+}
 
+.Clickable-field{
+  display: flex;
+  background-color: var(--hora_aula_field);
+  border-radius: 15px;
+  height: 6vh;
+  width: 10.8vw;
+  margin: 10px 11px 10px 11px;
+  border-color: skyblue;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.dropbox{
+  /* display: flex; */
+  background-color: var(--hora_aula_field);
+  
+  height: 5vh;
+  width: 13vw;
+  margin: 10px 11px 10px 11px;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+}
+
+.Text-Box{
+  display: flex;
+  border-radius: 5px;
+  height: 6vh;
+  width: 10.8vw;
+  margin: 10px 11px 10px 11px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
 
 /* TODO: verificar esses estilos */
 
@@ -139,7 +205,7 @@ h1{
 .container_columns{
   display:inline-flex;
   position: relative;
-  left: 0.99vw;
+  padding-left: 10px;
 }
 /* 
 .columns{
