@@ -1,7 +1,7 @@
 import React from "react";
 import { MateriaField } from "./MateriaField";
 
-export const SelecaoMateriaField = ({ value, disciplinasParaSelecionar, isClickable, action }) => {
+export function SelecaoMateriaField ({ value, disciplinasParaSelecionar, isClickable, action }){
   // const count = 2;
   // const [selectedMateria, SetSelectedMateria] = useState("ss");
 

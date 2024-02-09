@@ -25,7 +25,7 @@ export function Matricula({ }) {
   const [horarioAula, setHorarioAula] = useState(horarioAulaPlaceholder)
   const [disciplinasCursos, setDisciplinasCursos] = useState(null)
 
-  const [disciplinas, setDisciplinas] = useState(null)
+  const [disciplinasMatriculadas, setDisciplinasMatriculadas] = useState([])
 
   const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null)
   const [disciplinasParaSelecionar, setDisciplinasParaSelecionar] = useState([])
@@ -59,7 +59,7 @@ export function Matricula({ }) {
    ficar tentando de tempos em tempos chamar ela até voltar */
 
   useEffect(() => {
-    console.log(diasSemana)
+    // console.log(diasSemana)
     getLabelsDiasSemana().then((response) => {
       setDiasSemana(response)
     }).catch((error) => {
@@ -70,7 +70,7 @@ export function Matricula({ }) {
 
 
   useEffect(() => {
-    console.log("periodo.value: " + periodo.value +  "; periodo.cod:" + periodo.cod)
+    // console.log("periodo.value: " + periodo.value +  "; periodo.cod:" + periodo.cod)
     getLabelsHorarioAula(periodo.cod).then((response) => {
       setHorarioAula(response)
     }).catch((error) => {
@@ -82,18 +82,12 @@ export function Matricula({ }) {
     listarDisciplinasPorCurso(false, curso.siglaCurso, codFaculdade).then((response) => {
       setDisciplinasCursos(response)
 
-      var tempDisciplinas = []
-      response.forEach(disciplinaCurso => {
-        tempDisciplinas.push(disciplinaCurso.disciplina)
-      });
-      setDisciplinas(tempDisciplinas)
-
       var tempDisciplinasEspeciais = []
-      tempDisciplinas.forEach(disciplina => {
-        if (disciplina.isDisciplinaEspecial)
-          tempDisciplinasEspeciais.push(disciplina)
-      });
-
+      response.forEach(disciplinaCurso => {
+        if (disciplinaCurso.disciplina.isDisciplinaEspecial)
+        tempDisciplinasEspeciais.push(disciplinaCurso.disciplina)
+      });      
+      
       setDisciplinasEspeciais(tempDisciplinasEspeciais)
 
     }).catch((error) => {
@@ -113,7 +107,7 @@ export function Matricula({ }) {
     GridDisciplinas (Matricula) (Matemática Discreta, IA, ...) Vai ser clicável, permitindo ao usuário setar a matéria.
     Se setar uma matéria, deve setar automáticamente essa matéria para os outros dias também
 
-    SelecaoMateriaField (Matricula) -> Vai conter as matérias so dia que o usuário selecionou, permitindo que
+    SelecaoMateriaField (Matricula) -> Vai conter as matérias do dia que o usuário selecionou, permitindo que
     ele se matricule nela para o dia.
 
     Também terá as matérias especiais, onde ao clicar, ele já registra na matrícula automático
@@ -143,7 +137,8 @@ export function Matricula({ }) {
           qtdAulasDias={horarioAula.length}
           disciplinas={disciplinasCursos}
           semestre={semestre}
-          disciplinasSelected={disciplinasParaSelecionar}
+          disciplinasMatriculadas={disciplinasMatriculadas}
+          setDisciplinasMatriculadas={setDisciplinasMatriculadas}
           setDisciplinasToSelect={setDisciplinasParaSelecionar} />
       </div>
 
