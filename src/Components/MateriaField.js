@@ -1,10 +1,10 @@
 import React from 'react'
 import { complementTextColor } from '../utils/utils'
 
-export function MateriaField ({key, label, bgColor="#0000ff", isClickable=false, action}) {
+export function MateriaField ({key, label, bgColor="#0000ff", isClickable=false, action, tamanho= "10.8vw"}) {
     if(isClickable){
         return (
-                <button class="Materia-disponivel button" onClick={action} key={key}>
+                <button class="Materia-disponivel button" style={{backgroundColor: bgColor, color: complementTextColor(bgColor, "#fff", "#000")}} onClick={action} key={key}>
                 {label}
                 </button>
                 
@@ -19,6 +19,7 @@ export function MateriaField ({key, label, bgColor="#0000ff", isClickable=false,
     //     )    
     // }
     return (
-        <p class="hora_aula" style={{backgroundColor: bgColor, color: complementTextColor(bgColor, "#fff", "#000")}} key={key}>{label}</p>
+        <p class="hora_aula" style={{backgroundColor: bgColor, color: complementTextColor(bgColor, "#fff", "#000"),
+        width: tamanho}} key={key}>{label}</p>
     )
 }

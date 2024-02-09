@@ -134,7 +134,7 @@ export function ColunaDiaAula({
                 : value.disciplina.nomeDisciplina;
             bgColor =
               value.disciplina.corDisciplina != null &&
-              value.disciplina.corDisciplina != undefined
+                value.disciplina.corDisciplina != undefined
                 ? value.disciplina.corDisciplina
                 : bgColor;
           }
@@ -161,24 +161,154 @@ export function ColunaDiaAula({
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem disponível para matricular
 // No caso da visualização da Hora_Aula do aluno, vai puxar as disciplinas que o aluno já tem cadastrado
-export function GridDisciplinasMatricula({ diaDisciplina, periodos }) {
+export function GridDisciplinasMatricula({ diaDisciplina, qtdAulasDias, disciplinas, semestre,
+  disciplinasSelected, setDisciplinasToSelect }) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
-  return diaDisciplina.map((value, index) => (
-    <ColunaDiaAula
-      idColuna={value} //Dia da semana
-      periodos={periodos}
-    />
-  ));
+
+  //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
+  return (
+    //ColunaDiaAula vai criar a div de colunas
+    diaDisciplina.map((value, index) => (
+      <ColunaDiaAulaMatricula
+        // idColuna={value.toUpperCase()}//Dia da semana
+        idColuna={value.cod} //Dia da semana
+        qtdAulasDias={qtdAulasDias}
+        disciplinas={disciplinas}
+        semestre={semestre}
+        disciplinasSelected={disciplinasSelected}
+        setDisciplinasToSelect={setDisciplinasToSelect}
+      />
+    ))
+  );
 }
+
+
 
 // Cria a coluna de aulas de determinado dia.
 // O identificador de cada campo da coluna é o dia da semana da coluna + a posição do identificador
-export const ColunaDiaAulaMatricula = ({ idColuna, periodos }) => {
-  return (
-    <div>
-      {periodos.map((value, index) => (
-        <MateriaField key={idColuna + index} label={value.label} />
-      ))}
-    </div>
-  );
-};
+export function ColunaDiaAulaMatricula({ idColuna,
+  qtdAulasDias,
+  disciplinas,
+  semestre,
+  disciplinasSelected,
+  setDisciplinasToSelect
+}) {
+
+  function handleDisciplinasToSelect(value) {
+    if (setDisciplinasToSelect) {
+      setDisciplinasToSelect(null)//zerar o array
+      console.log("Value: "+ value)
+      setDisciplinasToSelect(value)
+      // alert("disciplinas Selecionadas!");
+    }
+    else {
+      alert("Sem ação para realizar!");
+    }
+  }
+
+
+
+
+  function mapDisciplinasPorCampo(disciplinas, linhasAula, isMatriculaPorSemestre = false) {
+
+    let disciplinasToSelect = []
+    disciplinas.map((value, index) => {
+
+      let matriculaPorSemestreExpression = isMatriculaPorSemestre == true ? value.semestre == semestre : value.semestre
+      if (
+        value.diasDeAula.includes(idColuna) &&
+        verifyArrObj(value.horasAula, "numeroAula", linhasAula) &&
+        matriculaPorSemestreExpression
+      ) {
+        label = value.disciplina.nomeDisciplina.length > 12
+            ? value.disciplina.siglaDisciplina
+            : value.disciplina.nomeDisciplina;
+        bgColor = value.disciplina.corDisciplina != null &&
+            value.disciplina.corDisciplina != undefined
+            ? value.disciplina.corDisciplina
+            : bgColor;
+
+        disciplinasToSelect.push(
+          <MateriaField
+            key={value.disciplina.codDisciplina}
+            label={label}
+            bgColor={bgColor}
+            isClickable={true}
+            // colocar os dados da disciplina no lugar
+            action={(e) => console.log(disciplinasToSelect[disciplinasToSelect.length-1])}
+          />)
+      }
+    });
+    console.log(disciplinasToSelect?.length == 0)
+    if (disciplinasToSelect?.length == 0) {
+      console.log("UEPAA")
+      disciplinasToSelect.push(
+        <MateriaField
+          key={"SemDiscIndicator"}
+          label={"Sem disciplinas disponíveis"}
+          bgColor={"#545454"}
+          tamanho={"18vw"}
+        />)
+    }
+    return disciplinasToSelect
+
+  }
+
+
+
+
+
+
+
+
+  if (disciplinas != [] && disciplinas !== null && disciplinas !== undefined) {
+
+    var disciplinasComHoraAula = [];
+
+    disciplinas.forEach((disciplinaCurso) => {
+      if (!disciplinaCurso.disciplina.isDisciplinaEspecial) {
+        disciplinasComHoraAula.push(disciplinaCurso);
+      }
+    });
+
+    var materiasField = [];
+
+    for (let linhasAula = 1; linhasAula <= qtdAulasDias; linhasAula++) {
+      var label = "";
+      var bgColor = "#0000ff";
+
+      if (linhasAula == 3 || linhasAula == 6) {
+
+        label = "Intervalo";
+        materiasField.push(
+          <MateriaField
+            key={idColuna + linhasAula}
+            label={label}
+            bgColor={bgColor}
+          />
+        );
+      }
+      else {
+        materiasField.push(
+          <MateriaField
+            key={idColuna + linhasAula}
+            label={label}
+            bgColor={bgColor}
+            isClickable={true}
+            action={(e) => {
+              console.log(e.target.value)
+              handleDisciplinasToSelect(mapDisciplinasPorCampo(disciplinasComHoraAula, linhasAula))
+            }}
+          />
+        );
+      }
+    }
+    return (
+      <div>
+        {materiasField}
+        {/* <LinhasAulas
+       idColuna={idColuna}></LinhasAulas> */}
+      </div>
+    );
+  }
+}
