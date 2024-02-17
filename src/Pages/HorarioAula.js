@@ -8,8 +8,9 @@ import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../utils/HorarioAu
 import { disciplinaCursoPlaceholder, listarDisciplinasPorCurso } from "../utils/DisciplinaCurso/disciplinaCursoController";
 import OptionsMenu from "../Components/OptionsMenu";
 import { disciplinaPlaceholder } from "../utils/Disciplina/disciplinaController";
+import { useParams } from "react-router-dom";
 
-export function HorarioAula({ }) {
+export function HorarioAula() {
   //Vão vir do cadastro do usuário
 
   /* ---------------------------------------------<Dados Mockados>--------------------------------------------- */
@@ -17,10 +18,10 @@ export function HorarioAula({ }) {
   // const siglaCurso = "DMD" //Puxar do cadastro do aluno ou da seleção
   const codFaculdade = "FAT128" //puxar do cadastro do aluno ou da seleção
   const [semestre, setSemestre] = useState(1) //puxar do período selecionado
-  const curso = { siglaCurso: "DMD", qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
+  const curso = { siglaCurso: useParams().siglaCurso, qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
 
   /*------------------------------------------------------------------------------------------------------------*/
-
+  
 
   const [diasSemana, setDiasSemana] = useState(diasSemanaPlaceholder)
   const [horarioAula, setHorarioAula] = useState(horarioAulaPlaceholder)
