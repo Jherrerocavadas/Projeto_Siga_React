@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-export default function DropdownSelectField({key, dropboxOptions, placeholder="placeholder", placeholderValue, setter}) {
+export default function DropdownSelectField({key, dropboxOptions, placeholder="placeholder", placeholderValue, setter, disabled}) {
   
     var dropboxOptionElements = []
     dropboxOptions.forEach((dropboxOption, index) => {
@@ -16,7 +16,7 @@ export default function DropdownSelectField({key, dropboxOptions, placeholder="p
     return (
     <select class="dropbox" key={key} onChange={(e) => {
       console.log(dropboxOptions[0].object? dropboxOptions[e.target.value].object : e.target.value)
-        setter(dropboxOptions[0].object? dropboxOptions[e.target.value].object : e.target.value)}}>
+        setter(dropboxOptions[0].object? dropboxOptions[e.target.value].object : e.target.value)}} disabled={disabled}>
         <option value= {placeholderValue? placeholderValue: ""} key={key + 0}>{placeholder}</option>
         {dropboxOptionElements}
     </select>

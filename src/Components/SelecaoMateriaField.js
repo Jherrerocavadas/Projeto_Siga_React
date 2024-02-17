@@ -1,14 +1,14 @@
 import React from "react";
 import { MateriaField } from "./MateriaField";
 
-export const SelecaoMateriaField = ({ value, disciplinas, isClickable, action }) => {
+export function SelecaoMateriaField ({ value, disciplinasParaSelecionar, isClickable, action }){
   // const count = 2;
   // const [selectedMateria, SetSelectedMateria] = useState("ss");
 
   // TODO: inserir ações para registrar matéria
   function handleAction(e) {
     if(action){
-      action(e)
+      action(e.target.value)
       alert("Disciplina Registrada!");
     }
     else{
@@ -18,23 +18,13 @@ export const SelecaoMateriaField = ({ value, disciplinas, isClickable, action })
   }
 
 
-  if (disciplinas !== undefined || disciplinas !== null || disciplinas != []) {
+  if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar != []) {
     return (
       <div class="Selecao-materia-field">
-        {disciplinas.map((value, index) => {
-          if (value.isDisciplinaEspecial) {
-            <MateriaField
-              key={value.codDisciplina}
-              label={
-                value.nomeDisciplina.length > 12
-                  ? value.siglaDisciplina
-                  : value.nomeDisciplina
-              }
-              isClickable={isClickable}
-              action={handleAction}
-            />;
-          }
-        })}
+        {disciplinasParaSelecionar}
+           
+          
+        
       </div>
     );
   }

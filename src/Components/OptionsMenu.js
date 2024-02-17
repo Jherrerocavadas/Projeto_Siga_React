@@ -12,21 +12,25 @@ export default function OptionsMenu({ funcionalidades }) {
             opcoes.push(
                 <ClickableField
                     key={funcionalidade.key}
-                    label={funcionalidade.label + funcionalidade.value}
+                    label={funcionalidade.label + (funcionalidade.normalizedValue? funcionalidade.normalizedValue: funcionalidade.value)}
                     action={(e) => {
-                        funcionalidade.action(0)
+                        funcionalidade.action()
                         alert(funcionalidade.callbackText)
                     }} />
             )
         }
         else if(funcionalidade.type == "Dropbox"){
-            opcoes.push(
+            // if(funcionalidade.isVisible){
+                opcoes.push(
                     <DropdownSelectField
                     key={funcionalidade.key}
                     dropboxOptions={funcionalidade.value}
                     placeholder={funcionalidade.label}
-                    setter={funcionalidade.action}/>
+                    setter={funcionalidade.action}
+                    disabled={funcionalidade.disabled}/>
             )
+            // }
+          
         }
 
         else if(funcionalidade.type == "Text"){
