@@ -127,27 +127,70 @@ function verifyArrObj(arr, key, value, mode = "normal") {
 //Verifica um objeto dentro de um array é igual a outro objeto
 
 
-// [{4},{3},{2},{1}] == // [{4},{0},{0},{0}] -> arr1 tem um item no arr2, então tem que dar true
-function verifyobjects(objList1, objList2, key) {
+// FIX: Terminar lógica da função
+function verifyArrMultipleKeys(objList1, objList2, keysList) {
 
-  // console.log("objList1: ", objList1)
-  // console.log("key: ", key)
+  objList1.forEach((obj1) => {
+    console.log(obj1[keysList[1]])
+    var horasAulaComparation = []
+    var diasAulaComparation = []
+    
+    keysList.forEach((key)=>{
+      objList1[key.chave].forEach((obj1Key) => {
+      
 
-  if (objList1?.length > 0 && objList2?.length > 0) {
-    var comparations = [];
-    objList1.forEach((obj) => {
+        //para cada horaAula em cada disciplinaCurso
+        objList2[key].forEach((obj2Key)=>{
+          if(obj1Key[key.valor] == obj2Key[key.valor]){
+            horasAulaComparation.push({"tipo": key.chave, "resultadoComparacao": true})
+          }
+          else{
+            horasAulaComparation.push({"tipo": key.chave, "resultadoComparacao": false})
+          }
+        })    
 
-      // console.log("OBJ: "+ obj[key] + "; value: " + value + "; comp: " + (obj.numeroAula == value))
-      // console.log("obj[key]: ", obj[key])
-      objList2.forEach((object) => {
-        comparations.push(JSON.stringify(obj) == JSON.stringify(object));
+      objList1[key.chave].forEach((obj1Key1) => {
+      
+
+        //para cada horaAula em cada disciplinaCurso
+        objList2[key].forEach((obj2Key1)=>{
+          if(obj1Key1[key] == obj2Key1[key]){
+            diasAulaComparation.push({"tipo": key.chave, "resultadoComparacao": true})
+          }
+          else{
+            diasAulaComparation.push({"tipo": key.chave, "resultadoComparacao": false})
+          }
+        })
       })
-    });
-    // console.log("comparations: ", comparations)
-    // console.log(comparations.includes(true))
-    return comparations.includes(true);
-  }
-  return false;
+    })
+
+console.log("horasCompara", horasAulaComparation)
+console.log("diasCompara", diasAulaComparation)
+      //capturar a posição da matéria que deu os checks
+      
+      return (
+        verifyArrObj(horasAulaComparation, "resultadoComparacao", true) &&
+       verifyArrObj(diasAulaComparation, "resultadoComparacao", true)
+       )
+    })
+  })
+  
+
+  // if (objList1?.length > 0 && objList2?.length > 0) {
+  //   var comparations = [];
+  //   objList1.forEach((obj) => {
+
+  //     // console.log("OBJ: "+ obj[key] + "; value: " + value + "; comp: " + (obj.numeroAula == value))
+  //     // console.log("obj[key]: ", obj[key])
+  //     objList2.forEach((object) => {
+  //       comparations.push(JSON.stringify(obj) == JSON.stringify(object));
+  //     })
+  //   });
+  //   // console.log("comparations: ", comparations)
+  //   // console.log(comparations.includes(true))
+  //   return comparations.includes(true);
+  // }
+  // return false;
 }
 
 function getPositionOfMateriaConflitante(listaMateriasMatriculadas, novaMateria){
@@ -272,7 +315,7 @@ export function ColunaDiaAula({
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem disponível para matricular
 // No caso da visualização da Hora_Aula do aluno, vai puxar as disciplinas que o aluno já tem cadastrado
 export function GridDisciplinasMatricula({ diaDisciplina, qtdAulasDias, disciplinas, semestre,
-  disciplinasMatriculadas, setDisciplinasMatriculadas, setDisciplinasToSelect }) {
+  disciplinasMatriculadas, setDisciplinasMatriculadas, setDisciplinasToSelect,isMatriculaPorSemestre }) {
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
 
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
@@ -288,6 +331,7 @@ export function GridDisciplinasMatricula({ diaDisciplina, qtdAulasDias, discipli
         disciplinasMatriculadas={disciplinasMatriculadas}
         setDisciplinasMatriculadas={setDisciplinasMatriculadas}
         setDisciplinasToSelect={setDisciplinasToSelect}
+        isMatriculaPorSemestre={isMatriculaPorSemestre}
       />
     ))
   );
@@ -303,7 +347,8 @@ export function ColunaDiaAulaMatricula({ idColuna,
   semestre,
   disciplinasMatriculadas,
   setDisciplinasMatriculadas,
-  setDisciplinasToSelect
+  setDisciplinasToSelect,
+  isMatriculaPorSemestre
 }) {
 
   function handleDisciplinasToSelect(value) {
@@ -360,8 +405,18 @@ export function ColunaDiaAulaMatricula({ idColuna,
               if (disciplinasMatriculadas.includes(value)) (
                 alert("Essa disciplina já está na lista de matrícula!")
               )
-              else if (verifyArrObj(disciplinasMatriculadas, "diasDeAula", value.diasDeAula, "eachValue") &&
-              verifyArrObj(disciplinasMatriculadas, "horasAula", value.horasAula, "eachValue")){
+              else if (
+
+                //Essa verificacao Tem que ser das mesmas disciplinas
+                //Objeto das disciplinas Matriculadas
+                // Comparar: diasDeAula e horasAula
+                // Verificar Objeto value (matéria a ser matriculada)
+                verifyArrObj(disciplinasMatriculadas, "diasDeAula", value.diasDeAula, "eachValue") &&
+              verifyArrObj(disciplinasMatriculadas, "horasAula", value.horasAula, "eachValue")
+
+              // verifyArrMultipleKeys(disciplinasMatriculadas, value, [{chave: "horasAula", valor: "numeroAula"},
+              // {chave: "diasDeAula", valor: ""}])
+              ){
                 alert("Disciplinas com horários conflitantes")
 
                 console.log("DiasAula: ",verifyArrObj(disciplinasMatriculadas, "diasDeAula", value.diasDeAula, "eachValue"))
@@ -388,7 +443,7 @@ export function ColunaDiaAulaMatricula({ idColuna,
                 tempDisciplinasMatriculadas.push(value)
                 handleDisciplinasMatriculadas(tempDisciplinasMatriculadas)
                 
-                // console.log("disciplinasMatriculadas: ", disciplinasMatriculadas)
+                console.log("disciplinasMatriculadas: ", tempDisciplinasMatriculadas)
               }
 
 
@@ -479,7 +534,7 @@ export function ColunaDiaAulaMatricula({ idColuna,
               isClickable={true}
               action={(e) => {
                 console.log(e.target.value)
-                handleDisciplinasToSelect(mapDisciplinasPorCampo(disciplinasComHoraAula, linhasAula))
+                handleDisciplinasToSelect(mapDisciplinasPorCampo(disciplinasComHoraAula, linhasAula, isMatriculaPorSemestre))
               }}
             />
           );

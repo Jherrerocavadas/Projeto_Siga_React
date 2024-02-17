@@ -30,7 +30,7 @@ export function Matricula({ }) {
   const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null)
   const [disciplinasParaSelecionar, setDisciplinasParaSelecionar] = useState([])
   
-
+  const [isMatriculaPorSemestre, setIsMatriculaPorSemestre] = useState(false)
   const dropdownSemestre = []
 
   
@@ -48,9 +48,17 @@ export function Matricula({ }) {
   ]
 
 
+  
   const funcionalidades = [
-    { type: "Dropbox", key: "dpb001", label: "Selecione o Semestre:", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Período concluída!" },
-    { type: "Dropbox", key: "dpb002", label: "Selecione o Periodo:", value: dropdownPeriodo, action: setPeriodo, callbackText: "Alteração de Período concluída!" },
+    { type: "Dropbox", key: "dpb001", label: "Selecione o Semestre: ", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Período concluída!", disabled: !isMatriculaPorSemestre},
+    { type: "Button",
+     key: "btn001",
+     label: "Matrícula por semestre: ",
+     value: isMatriculaPorSemestre,
+     action: () => {setIsMatriculaPorSemestre(!isMatriculaPorSemestre)},
+     callbackText: isMatriculaPorSemestre? "Matricula por Semestre ativada!" :"Matricula por Semestre desativada" ,
+     normalizedValue: isMatriculaPorSemestre? "SIM" : "NÃO"
+    },
     { type: "Text", key: "txt001", label: "Curso: ", value: curso.siglaCurso},
     { type: "Text", key: "txt002", label: "Semestre: ", value: semestre?  semestre + "°": ""},
   ]
@@ -139,7 +147,8 @@ export function Matricula({ }) {
           semestre={semestre}
           disciplinasMatriculadas={disciplinasMatriculadas}
           setDisciplinasMatriculadas={setDisciplinasMatriculadas}
-          setDisciplinasToSelect={setDisciplinasParaSelecionar} />
+          setDisciplinasToSelect={setDisciplinasParaSelecionar}
+          isMatriculaPorSemestre={isMatriculaPorSemestre} />
       </div>
 
       
