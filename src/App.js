@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { HorarioAula } from './Pages/HorarioAula';
 import { Matricula } from './Pages/Matricula';

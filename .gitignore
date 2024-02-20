@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Variáveis de ambiente do projeto:
-.env.*
+# Templates de componentes guia do React-native
+src/Components/ImportRN
