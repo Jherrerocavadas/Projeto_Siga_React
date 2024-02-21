@@ -1,0 +1,79 @@
+:root{
+
+  --error_page_bg_color: rgb(82, 153, 182);
+  --error_page_label_color:skyblue
+
+} 
+
+.error{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  background-color: var(--error_page_bg_color);
+  color: var(--error_page_label_color) !important;
+
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  font-size: 18px;
+}
+
+.error h1{
+  margin: 0 auto;
+}
+
+.error h2{
+  margin: 0 auto;
+  padding: 6px;
+ text-align: center;
+}
+
+.error span{
+  text-align: center;
+}
+
+
+
+
+.redirect{
+  color: lightblue;
+}
+
+
+
+
+
+
+.auth_css{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 400px;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+.auth_css a{
+  padding: 0;
+  color: lightblue;
+  text-decoration: underline;
+}
+
+.auth_css h5{
+  padding: 0;
+  display: inherit;
+}
+
+.auth_css #redirect_auth{
+  padding: 6px;
+}
