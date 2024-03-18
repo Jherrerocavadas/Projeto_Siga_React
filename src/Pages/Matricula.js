@@ -8,6 +8,15 @@ import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../utils/HorarioAu
 import { listarDisciplinasPorCurso } from "../utils/DisciplinaCurso/disciplinaCursoController";
 import OptionsMenu from "../Components/OptionsMenu";
 
+
+function realizarMatriculaAluno(aluno, disciplinas, setMatriculaConfirmada) {
+
+  setMatriculaConfirmada(true)
+  
+}
+
+
+
 export function Matricula({ }) {
 //Vão vir do cadastro do usuário
 
@@ -17,6 +26,7 @@ export function Matricula({ }) {
   const codFaculdade = "FAT128" //puxar do cadastro do aluno ou da seleção
   const [semestre, setSemestre] = useState(1) //puxar do período selecionado
   const curso = { siglaCurso: "DMD", qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
+  const aluno = null;
 
   /*------------------------------------------------------------------------------------------------------------*/
 
@@ -31,6 +41,9 @@ export function Matricula({ }) {
   const [disciplinasParaSelecionar, setDisciplinasParaSelecionar] = useState([])
   
   const [isMatriculaPorSemestre, setIsMatriculaPorSemestre] = useState(false)
+
+  const [isMatriculaConfirmada, setMatriculaConfirmada] = useState(false) // Confirmação de matrícula
+
   const dropdownSemestre = []
 
   
@@ -46,8 +59,6 @@ export function Matricula({ }) {
     { label: "Tarde", value: 1, callbackText: "Período alterado para Tarde! ", object: { value: "Tarde", cod: "TARDE" } },
     { label: "Noite", value: 2, callbackText: "Período alterado para Noite! ", object: { value: "Noite", cod: "NOITE" } },
   ]
-
-
   
   const funcionalidades = [
     { type: "Dropbox", key: "dpb001", label: "Selecione o Semestre: ", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Período concluída!", disabled: !isMatriculaPorSemestre},
@@ -57,10 +68,19 @@ export function Matricula({ }) {
      value: isMatriculaPorSemestre,
      action: () => {setIsMatriculaPorSemestre(!isMatriculaPorSemestre)},
      callbackText: isMatriculaPorSemestre? "Matricula por Semestre ativada!" :"Matricula por Semestre desativada" ,
-     normalizedValue: isMatriculaPorSemestre? "SIM" : "NÃO"
+     normalizedValue: isMatriculaPorSemestre? "SIM" : "NÃO",
     },
     { type: "Text", key: "txt001", label: "Curso: ", value: curso.siglaCurso},
     { type: "Text", key: "txt002", label: "Semestre: ", value: semestre?  semestre + "°": ""},
+
+    { type: "Button",
+     key: "btn002",
+     label: isMatriculaConfirmada? "Matricula Confirmada!" :"Confirmar Matricula",
+     value: "",
+     action: disciplinasMatriculadas.length == 0? () => {realizarMatriculaAluno(aluno, disciplinasMatriculadas, setMatriculaConfirmada)} : null,
+     callbackText: isMatriculaConfirmada? "Matricula Confirmada!" :"Confirmar Matricula" ,
+     disabled: isMatriculaConfirmada || disciplinasMatriculadas.length == 0
+    },
   ]
 
   /* TODO: fazer algum esquema para verificar se a API tá fora ou não, e se estiver, 

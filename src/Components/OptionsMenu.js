@@ -14,9 +14,17 @@ export default function OptionsMenu({ funcionalidades }) {
                     key={funcionalidade.key}
                     label={funcionalidade.label + (funcionalidade.normalizedValue? funcionalidade.normalizedValue: funcionalidade.value)}
                     action={(e) => {
-                        funcionalidade.action()
+                        if(funcionalidade.action){
+                            funcionalidade.action()
                         alert(funcionalidade.callbackText)
-                    }} />
+                        }
+                        else{
+                            
+                        alert("Sem função, parça")
+                        }
+                        
+                    }}
+                    disabled={funcionalidade.disabled? funcionalidade.disabled : false} />
             )
         }
         else if(funcionalidade.type == "Dropbox"){
