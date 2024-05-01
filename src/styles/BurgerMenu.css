@@ -14,7 +14,7 @@
 
 /*  Cor do icone de burger em hover*/
 .bm-burger-bars-hover {
-  background: orange
+  background: orange;
 }
 
 /* Position and sizing of clickable cross button */
@@ -35,13 +35,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu-wrap {
   position: fixed;
   height: 100%;
-  background:blue;
+  background: blue;
 }
 
 /* cor de background do sidebar */
 .bm-menu {
   background: gray;
-  padding: 2.5em 1.5em 0;
+  padding: 2.5em 0.2em 0;
   font-size: 1.15em;
 }
 
@@ -53,7 +53,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Wrapper for item list */
 .bm-item-list {
   color: orange;
-  padding: 0.8em;
+  /* padding: 0.8em; */
 }
 
 /* Individual item */
@@ -66,4 +66,27 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: rgba(0, 0, 0, 0.3);
 }
 
+/* ----------< Account Details >---------- */
 
+.accountDetailsPhoto {
+  border-radius: 50%;
+  width: 55%;
+  display: flex;
+  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.accountDetailsText {
+  font-size: medium;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  white-space: pre-wrap;
+  padding-bottom: 10px;
+}
+
+#faculdade{
+  padding-bottom: 10px;
+  /* background-color: black; */
+}
