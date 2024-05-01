@@ -7,6 +7,13 @@ export const api = axios.create({
 })
 
 
+export const api_usuarios = axios.create({
+
+   
+    baseURL: process.env.REACT_APP_BASE_URL_AUTH // endereço de hospedagem da API (definido na variável de ambiente)
+})
+
+
 // export async function getLabelsDiasSemana() {
 //     return api.get('/diasSemana')
 //         .then(async (response) => {
