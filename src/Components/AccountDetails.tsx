@@ -31,7 +31,7 @@ export function AccountDetailsAluno({user}) {
     );
 }
 
-export function AccountDetailsProfessor(user: ProfessorResponse) {
+export function AccountDetailsProfessor({user}) {
   return (
     <div>
       <div>

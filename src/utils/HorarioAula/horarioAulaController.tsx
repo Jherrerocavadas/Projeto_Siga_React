@@ -30,13 +30,15 @@ export async function inserirHorarioAula(
     })
     .then((response) => {
       // Enviar dados do usuário
-      alert("Sucesso!", "Cadastro de horarioaula concluído!");
+      // alert("Sucesso!", "Cadastro de horarioaula concluído!");
+      alert("Cadastro de horarioaula concluído!");
       navigation.navigate("HorarioAula"); // Depois abrir o detalhe da HorarioAula
     })
     .catch((error) => {
       console.warn("Erro ao inserir Horário de Aula!");
       console.error(error);
-      alert("Erro!", "Não foi possível inserir um Hórario de Aula!");
+      // alert("Erro!", "Não foi possível inserir um Hórario de Aula!");
+      alert("Não foi possível inserir um Hórario de Aula!");
     });
 }
 

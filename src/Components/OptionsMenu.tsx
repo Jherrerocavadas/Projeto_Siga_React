@@ -1,4 +1,3 @@
-import React from 'react'
 import ClickableField from './ClickableField'
 import DropdownSelectField from './DropdownSelectField';
 import { TextBox } from './TextBox';
@@ -54,7 +53,7 @@ export default function OptionsMenu({ funcionalidades }) {
 
 
     return (
-        <div class="Filters-field">
+        <div className="Filters-field">
             {opcoes}
         </div>
     )

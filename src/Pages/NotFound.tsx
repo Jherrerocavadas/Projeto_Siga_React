@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export function NotFound({}) {
   return (
-    <div class="error">
+    <div className="error">
         <h1>Ops, erro 404: essa página não existe :(</h1>
         <h2>Não se preocupe! talvez algum dos passos abaixo possa te ajudar:</h2>
         <ul>

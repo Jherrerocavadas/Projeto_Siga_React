@@ -25,22 +25,22 @@ export function GridHorarioAulas({ labelsHorarioAula }) {
   // ) {
   //   return (
   //     <div>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
-  //       <p class="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
+  //       <p className="hora_aula"></p>
   //     </div>
   //   );
   // }
 
   if (
     labelsHorarioAula != null ||
-    labelsHorarioAula != undefined ||
-    labelsHorarioAula != []
+    labelsHorarioAula != undefined //||
+    // labelsHorarioAula != []
   ) {
     labelsHorarioAula.forEach((horarioAula) => {
       if (horarioAula.isIntervalo) {
@@ -256,7 +256,7 @@ export function ColunaDiaAula({
   disciplinas,
   semestre,
 }) {
-  if (disciplinas != [] && disciplinas !== null && disciplinas !== undefined) {
+  if (/*disciplinas != [] &&*/ disciplinas !== null && disciplinas !== undefined) {
 
     var disciplinasComHoraAula = [];
 
@@ -474,7 +474,7 @@ export function ColunaDiaAulaMatricula({ idColuna,
 
 
 
-  if (disciplinas != [] && disciplinas !== null && disciplinas !== undefined) {
+  if (/*disciplinas != [] && */disciplinas !== null && disciplinas !== undefined) {
 
     var disciplinasComHoraAula = [];
 

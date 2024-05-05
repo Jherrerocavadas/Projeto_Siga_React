@@ -2,7 +2,7 @@ import "../styles/GradeHorarioStyle.css"
 import { CabecalhoAula } from "../Components/CabecalhoAula"
 import { GridHorarioAulas, GridDisciplinas, GridDisciplinasMatricula } from "../Components/GridAulas"
 import { MateriasEspeciaisField, SelecaoMateriaField } from "../Components/SelecaoMateriaField"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../utils/utils";
 import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../utils/HorarioAula/horarioAulaController";
 import { listarDisciplinasPorCurso } from "../utils/DisciplinaCurso/disciplinaCursoController";
@@ -93,7 +93,7 @@ export function Matricula({ }) {
     }).catch((error) => {
       console.log("Erro ao criar grid de aulas: " + error)
     })
-  }, {})
+  }, [])
 
 
 
@@ -104,7 +104,7 @@ export function Matricula({ }) {
     }).catch((error) => {
       console.log("Erro ao receber horário de aula: " + error)
     })
-  }, { periodo })
+  }, [periodo])
 
   useEffect(() => {
     listarDisciplinasPorCurso(false, curso.siglaCurso, codFaculdade).then((response) => {
@@ -121,7 +121,7 @@ export function Matricula({ }) {
     }).catch((error) => {
       console.error("Erro ao setar disciplinas Cursos: " + error)
     })
-  }, {})
+  }, [])
   
   // Estrutura da tela
 
@@ -145,7 +145,7 @@ export function Matricula({ }) {
 
   return (
 
-    <div class="container">
+    <div className="container">
 
       <OptionsMenu
         funcionalidades={funcionalidades} />
@@ -155,7 +155,7 @@ export function Matricula({ }) {
       <CabecalhoAula horarioUsuario={periodo.value}
         diasSemana={diasSemana} />
 
-      <div class="container_columns" style={{ display: "inline-flex" }}>
+      <div className="container_columns" style={{ display: "inline-flex" }}>
         <GridHorarioAulas labelsHorarioAula={horarioAula} />
 
 

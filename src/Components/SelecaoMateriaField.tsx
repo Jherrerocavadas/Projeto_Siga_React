@@ -1,7 +1,7 @@
 import React from "react";
 import { MateriaField } from "./MateriaField";
 
-export function SelecaoMateriaField ({ value, disciplinasParaSelecionar, isClickable, action }){
+export function SelecaoMateriaField ({ value=null, disciplinasParaSelecionar, isClickable=true, action=undefined }){
   // const count = 2;
   // const [selectedMateria, SetSelectedMateria] = useState("ss");
 
@@ -18,9 +18,10 @@ export function SelecaoMateriaField ({ value, disciplinasParaSelecionar, isClick
   }
 
 
-  if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar != []) {
+  // if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar != []) {
+  if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar.length < 1) {
     return (
-      <div class="Selecao-materia-field">
+      <div className="Selecao-materia-field">
         {disciplinasParaSelecionar}
            
           
@@ -30,7 +31,7 @@ export function SelecaoMateriaField ({ value, disciplinasParaSelecionar, isClick
   }
 };
 
-export function MateriasEspeciaisField({ disciplinasEspeciais, action, isClickable }) {
+export function MateriasEspeciaisField({ disciplinasEspeciais, action=undefined, isClickable=true }) {
 
   function handleAction(e){
     if(action){
@@ -46,7 +47,7 @@ export function MateriasEspeciaisField({ disciplinasEspeciais, action, isClickab
 
   if(disciplinasEspeciais !== null && disciplinasEspeciais !== undefined)
    { return (
-      <div class="Materias-especiais-field">
+      <div className="Materias-especiais-field">
         {disciplinasEspeciais.map((value, index) => (
           <MateriaField
             key={value.codDisciplina}

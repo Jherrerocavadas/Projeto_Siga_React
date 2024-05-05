@@ -1,4 +1,5 @@
 import "../styles/GradeHorarioStyle.css"
+import React from "react"
 import { CabecalhoAula } from "../Components/CabecalhoAula"
 import { GridHorarioAulas, GridDisciplinas } from "../Components/GridAulas"
 import { MateriasEspeciaisField } from "../Components/SelecaoMateriaField"
@@ -65,7 +66,7 @@ export function HorarioAula() {
     }).catch((error) => {
       console.log("Erro ao criar grid de aulas: " + error)
     })
-  }, {})
+  }, [])
 
 
 
@@ -76,7 +77,7 @@ export function HorarioAula() {
     }).catch((error) => {
       console.log("Erro ao receber horário de aula: " + error)
     })
-  }, { periodo })
+  }, [periodo])
 
   useEffect(() => {
     listarDisciplinasPorCurso(false, curso.siglaCurso, codFaculdade).then((response) => {
@@ -99,7 +100,7 @@ export function HorarioAula() {
     }).catch((error) => {
       console.error("Erro ao setar disciplinas Cursos: " + error)
     })
-  }, {})
+  }, [])
 
   // Estrutura da tela
 
@@ -123,7 +124,7 @@ export function HorarioAula() {
 
   return (
 
-    <div class="container">
+    <div className="container">
 
       <OptionsMenu
         funcionalidades={funcionalidades} />
@@ -133,7 +134,7 @@ export function HorarioAula() {
       <CabecalhoAula horarioUsuario={periodo.value}
         diasSemana={diasSemana} />
 
-      <div class="container_columns" style={{ display: "inline-flex" }}>
+      <div className="container_columns" style={{ display: "inline-flex" }}>
         <GridHorarioAulas labelsHorarioAula={horarioAula} />
 
 

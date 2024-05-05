@@ -18,10 +18,12 @@ export const CabecalhoAula = ({horarioUsuario, diasSemana}) => {
 //         })
 //   }, {}) 
 
-if(diasSemana != [] && diasSemana !== null && diasSemana !== undefined){
+if(/* diasSemana != [] &&*/ diasSemana !== null && diasSemana !== undefined){
   return (
-    <div class="titles">
-    <TituloColuna label= {"Horario - " + horarioUsuario} />
+    <div className="titles">
+    <TituloColuna
+    id="cabecalhoHorarios"
+     label= {"Horario - " + horarioUsuario} />
 
     {diasSemana.map((value, index) => <TituloColuna id={index} label={value.valor} />)}
 
@@ -35,7 +37,7 @@ if(diasSemana != [] && diasSemana !== null && diasSemana !== undefined){
 // Vai montar cada caixa individual do cabeçalho. Uma dessas caixas informará o período do aluno.
 export const TituloColuna = ({id, label}) => {
   return (
-    <div key={id} class="hora_aula days">
+    <div key={id} className="hora_aula days">
     <p>{label}</p>
     </div>
   )
