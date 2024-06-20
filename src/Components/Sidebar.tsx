@@ -14,7 +14,7 @@ export function Sidebar({children}) {
 
 
   //Implementação da barra vertical comum para todas as páginas
-  if(isAuthenticated && (loginType.toUpperCase() == "ALUNO")){
+  if(isAuthenticated && (userDataResponse?.tipoUsuario == "ALUNO")){
     return (
       <Menu {...Sidebar}>
 
@@ -38,7 +38,7 @@ export function Sidebar({children}) {
     )
   }
 
-  else if(isAuthenticated && (loginType.toUpperCase() == "PROFESSOR")){
+  else if(isAuthenticated &&  (userDataResponse?.tipoUsuario == "PROFESSOR")){
     return (
       <Menu {...Sidebar}>
 

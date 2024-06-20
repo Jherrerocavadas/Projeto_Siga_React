@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { LoginRequest, LoginResponse} from "../interfaces/usuario";
 import { api_usuarios } from '../utils/utils';
+import { realizarLogin } from '../utils/usuarioController';
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -17,15 +18,15 @@ export function AuthProvider({children}){
     const [userDataResponse, setUserDataResponse] = useState<LoginResponse | null>(null);
     const [loginType, setLoginType] = useState<string | null>(null);
 
-    // useEffect(() => {
-    //     const storagedUser = sessionStorage.getItem('@App:user');
-    //     const storagedToken = sessionStorage.getItem('@App:token');
+    useEffect(() => {
+        const storagedUser = sessionStorage.getItem('@App:user');
+        const storagedToken = sessionStorage.getItem('@App:token');
     
-    //     if (storagedToken && storagedUser) {
-    //       setUserDataResponse(JSON.parse(storagedUser));
-    //       api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
-    //     }
-    //   }, []);
+        if (storagedToken && storagedUser) {
+          setUserDataResponse(JSON.parse(storagedUser));
+          api_usuarios.defaults.headers.Authorization = `Bearer ${storagedToken}`;
+        }
+      }, []);
 
     async function Login(loginRequest: LoginRequest, tipoUsuario: string) {
         const headers = {'X-System-Cod' : 'WEB'}
@@ -36,10 +37,12 @@ export function AuthProvider({children}){
           {headers}
         )
         .then((response) => {
-            // api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+            api_usuarios.defaults.headers.Authorization = `Bearer ${response.data.tokenJwt}`;
             console.warn("TESTE AQUI: ", response.data)
             setUserDataResponse(response.data);
             setLoginType(tipoUsuario)
+            sessionStorage.setItem('@App:user', JSON.stringify(response.data));
+            sessionStorage.setItem('@App:token', response.data.tokenJwt);
             return response.data;
         })
         .catch((error) => {
@@ -49,19 +52,21 @@ export function AuthProvider({children}){
         });
 
 
-        // const response = await realizarLogin(userData);
+        // const response = await realizarLogin(loginRequest);
     
         // console.warn("PASSOU LOGIN: ", response)
         // setUserDataResponse(response);
        
     
-        // sessionStorage.setItem('@App:user', JSON.stringify(response.user));
-        // sessionStorage.setItem('@App:token', response.token);
+
       }
     
     function Logout() {
       
         setUserDataResponse(null);
+        api_usuarios.defaults.headers.Authorization = null
+        sessionStorage.removeItem('@App:user');
+        sessionStorage.removeItem('@App:token');
 
       }
     
