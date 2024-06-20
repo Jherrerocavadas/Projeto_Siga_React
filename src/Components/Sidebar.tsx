@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/auth';
 import ExternalLink from './ExternalLink';
 
 export function Sidebar({children}) {
-  const {isAuthenticated, user, loginType, Logout} = useAuth();
+  const {isAuthenticated, userDataResponse, loginType, Logout} = useAuth();
 
   function handleLogout(){
     Logout()
@@ -18,7 +18,7 @@ export function Sidebar({children}) {
     return (
       <Menu {...Sidebar}>
 
-    <AccountDetailsAluno user={user}></AccountDetailsAluno>
+    <AccountDetailsAluno user={userDataResponse}></AccountDetailsAluno>
     <ul>
         <li> <Link to={"/"}>Página Inicial</Link></li>
         <li> <Link to={"/avisos"}>Avisos</Link></li>
@@ -42,7 +42,7 @@ export function Sidebar({children}) {
     return (
       <Menu {...Sidebar}>
 
-    <AccountDetailsProfessor user={user}></AccountDetailsProfessor>
+    <AccountDetailsProfessor user={userDataResponse}></AccountDetailsProfessor>
     <ul>
         <li> <Link to={"/"}>Página Inicial</Link></li>
         <li> <Link to={"/horario-cursos/DMD"}>Avisos</Link></li>

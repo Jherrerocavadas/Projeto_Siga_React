@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/BurgerMenu.css";
-import { AlunoResponse, ProfessorResponse } from "../interfaces/usuario";
+import { DadosComplementaresAluno, DadosComplementaresProfessor } from "../interfaces/usuario";
 
 function AccountPhoto({ userPhoto }) {
   return (
@@ -19,10 +19,10 @@ export function AccountDetailsAluno({user}) {
     return (
       <div>
         <div>
-          <AccountPhoto userPhoto={user.usuario.fotoUsuario} />
+          <AccountPhoto userPhoto={user.fotoUsuario} />
           <div className="accountDetailsText">
-            <span id="faculdade">{user.faculdade.nomeFaculdade} <br /></span>
-            <span>Curso: {user.curso.nomeCurso} <br /></span>
+            <span id="faculdade">{user.dadosComplementares.faculdade.nomeFaculdade} <br /></span>
+            <span>Curso: {user.dadosComplementares.curso.nomeCurso} <br /></span>
             <span>RA: {user.numMatricula}  Semestre: {user.semestre}</span>
             
           </div>

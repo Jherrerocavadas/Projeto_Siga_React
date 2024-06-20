@@ -1,22 +1,30 @@
-export interface UsuarioRequest {
-    nome: string;
-    login: string;
+export interface LoginRequest {
+    username: string;
     senha: string;
-    email: string;
-    tipoUsuario: string;
   }
 
- export interface AlunoResponse{
+  export interface LoginResponse{
+    tokenJwt: string;
+    codigoUsuario: number;
+    nome: string;
+    email: string;
+    tipoUsuario: string;
+    fotoUsuario: string;
+    dadosComplementares: DadosComplementaresAluno | DadosComplementaresProfessor;
+   }
+
+
+ export interface DadosComplementaresAluno{
   numMatricula: number;
   percentualProgressao: number;
   percentualRendimento: number;
   semestre: number;
-  usuario: UsuarioRequest;
+  usuario: LoginRequest;
   faculdade: Faculdade | null;
   curso: Curso | null;
  }
 
-export interface ProfessorResponse{
+export interface DadosComplementaresProfessor{
 
 }
 
