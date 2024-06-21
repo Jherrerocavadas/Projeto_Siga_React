@@ -5,7 +5,7 @@ import { HorarioAula } from '../Pages/HorarioAula';
 import { Matricula } from '../Pages/Matricula';
 import { NotFound } from '../Pages/NotFound';
 import { Home } from '../Pages/Home';
-import {Login, LoginProfessor, LoginAluno} from '../Pages/Login';
+import {Login, LoginBase} from '../Pages/Login';
 
 function PublicRoutes(){
   return (
@@ -16,8 +16,8 @@ function PublicRoutes(){
       <Route path={"/horario-cursos/:siglaCurso"} element={<HorarioAula />} />
       <Route path={"/horario-cursos"} element={<HorarioAula />} />{/*Por hora*/}
       <Route path={"/login"} element={<Login />} />
-      <Route path={"/login/professor"} element={<LoginProfessor/>} />
-      <Route path={"/login/aluno"} element={<LoginAluno />} />
+      <Route path={"/login/professor"} element={<LoginBase tipoUsuario="Professor"/>} />
+      <Route path={"/login/aluno"} element={<LoginBase tipoUsuario="Aluno"/>} />
     </Routes>
   );
 };

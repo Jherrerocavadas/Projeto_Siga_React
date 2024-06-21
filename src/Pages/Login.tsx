@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from "../Components/Button"
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/auth';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ModalError } from '../Components/Modal';
+import { useError } from '../contexts/errors';
 
 
 export function Login() {
@@ -29,19 +31,31 @@ export function Login() {
   )
 }
 
-export function LoginProfessor() {
+export function LoginBase({tipoUsuario}){
   const navigate = useNavigate();
   const {Login} = useAuth();
+  const {error, setError} = useError()
   async function handleLogin(user){
-    console.warn(user)
-    const response = await Login(user, "professor");
-    console.log("LOGIN REALIZADO: ", response)
+    await Login(user, tipoUsuario.toLowerCase());
     navigate('/')
   }
 
+  const [canSubmit, setCanSubmit] = useState(true)
+
+  // validate={(value)=>{
+  //   if(value === '' || value === null)
+  //     {return "Esse campo é obrigatório"}
+  //   }}
   return (
     <div className='auth_css'>
-      <h1>Login - Professor</h1>
+      {error && <ModalError 
+          title={error.title}
+          description={error.description}
+          closeLabel={error.closeLabel}
+          error={error}
+          setClose={setError}
+        />}
+      <h1>Login - {tipoUsuario}</h1>
       <Formik
       initialValues={{username: '', senha: ''}}
       onSubmit={(values)=> { handleLogin(values) }}>
@@ -53,45 +67,20 @@ export function LoginProfessor() {
           <Button
           type="primary"
           label="Confirmar"
+          disabled={!canSubmit}
           isSubmit={true}
           // action={()=> navigate('/')} />
-          action={()=> { console.warn("action do botão")}} />
+          action={()=> { /*console.warn("action do botão")*/}} />
         </Form>
       </Formik>
     </div>
   )
 }
 
-export function LoginAluno() {
-  const navigate = useNavigate();
-  const {Login} = useAuth();
+// export function LoginProfessor() {
+//   return LoginBase("Professor");
+// }
 
-  async function handleLogin(user){
-    console.warn(user)
-    const response = await Login(user, "aluno");
-    console.log("LOGIN REALIZADO: ", response)
-    navigate('/')
-  }
-  
-  return (
-    <div className='auth_css'>
-      <h1>Login - Aluno</h1>
-      <Formik
-      initialValues={{username: '', senha: ''}}
-      onSubmit={(values)=> { handleLogin(values) }}>
-        <Form>
-          <h2>Usuário: </h2>
-          <Field name="username" type="text"/>
-          <h2>Senha: </h2>
-          <Field name="senha" type="password"/>
-          <Button
-          type="primary"
-          label="Confirmar"
-          isSubmit={true}
-          // action={()=> navigate('/')} />
-          action={()=> { console.warn("action do botão")}} />
-        </Form>
-      </Formik>
-    </div>
-  )
-}
+// export function LoginAluno() {
+//   return LoginBase("Aluno");
+// }
