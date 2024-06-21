@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { LoginRequest, LoginResponse} from "../interfaces/usuario";
 import { api_usuarios } from '../utils/utils';
 import { realizarLogin } from '../utils/usuarioController';
+import { useError } from './errors';
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export function AuthProvider({children}){
     const [userDataResponse, setUserDataResponse] = useState<LoginResponse | null>(null);
     const [loginType, setLoginType] = useState<string | null>(null);
+    const {setError} = useError()
 
     useEffect(() => {
         const storagedUser = sessionStorage.getItem('@App:user');
@@ -31,24 +33,27 @@ export function AuthProvider({children}){
     async function Login(loginRequest: LoginRequest, tipoUsuario: string) {
         const headers = {'X-System-Cod' : 'WEB'}
 
-        console.warn(process.env.REACT_APP_BASE_URL_AUTH)
+        // console.warn(process.env.REACT_APP_BASE_URL_AUTH)
         api_usuarios.post(`/usuarios/autenticar/${tipoUsuario}`,
           loginRequest,
           {headers}
         )
         .then((response) => {
             api_usuarios.defaults.headers.Authorization = `Bearer ${response.data.tokenJwt}`;
-            console.warn("TESTE AQUI: ", response.data)
+            // console.warn("TESTE AQUI: ", response.data)
             setUserDataResponse(response.data);
             setLoginType(tipoUsuario)
             sessionStorage.setItem('@App:user', JSON.stringify(response.data));
             sessionStorage.setItem('@App:token', response.data.tokenJwt);
-            return response.data;
+            sessionStorage.setItem('@App:userPhotoBase64', response.data.fotoUsuario);
         })
-        .catch((error) => {
-          console.warn("Erro ao realizar login!");
-          console.error(error);
-          return error
+        .catch((err) => {
+          const modalError = {
+            title: err.response.data.error,
+            description: err.response.data.message,
+            closeLabel: "Fechar"
+          }
+          setError(modalError)
         });
 
 
@@ -67,6 +72,7 @@ export function AuthProvider({children}){
         api_usuarios.defaults.headers.Authorization = null
         sessionStorage.removeItem('@App:user');
         sessionStorage.removeItem('@App:token');
+        sessionStorage.removeItem('@App:userPhotoBase64');
 
       }
     
