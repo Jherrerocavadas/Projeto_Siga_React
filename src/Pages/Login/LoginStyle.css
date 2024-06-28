@@ -1,0 +1,97 @@
+/* Wrapper para centralizar a tela de login */
+.page-wrapper {
+  padding: inherit;
+  display: flex;
+  justify-content: center;
+}
+
+/* Caixa com a tela de login */
+.wrapper-login {
+  width: 700px;
+  /* background: #350606; */
+  background: var(--waikawa-gray-900);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 100px 60px 50px 90px;
+}
+
+.login-selection-container {
+  width: 700px;
+  /* background: #350606; */
+  background: var(--waikawa-gray-900);
+  border-radius: 20px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+  padding: 80px 60px 50px 90px;
+
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 992px) {
+  .wrapper-login {
+    /* background: green; */ /* TESTES DE RESPONSIVIDADE*/
+    padding: 100px 60px 50px 95px;
+  }
+
+  .login-selection-container {
+   /* background: green; */ /* TESTES DE RESPONSIVIDADE*/
+    padding: 80px 60px 50px 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper-login {
+    width: 600px;
+    /* background: orange; */ /* TESTES DE RESPONSIVIDADE*/
+    padding: 80px 35px 50px 60px;
+  }
+
+  .login-selection-container {
+    width: 600px;
+ /* background: orange; */ /* TESTES DE RESPONSIVIDADE*/
+    padding: 80px 35px 50px 60px;
+  }
+}
+
+@media (max-width: 620px) {
+  .wrapper-login {
+    width: 460px;
+
+    /* background: blue; */ /* TESTES DE RESPONSIVIDADE*/
+    text-align: center;
+    justify-content: center;
+    padding: 80px 10% 60px 10%;
+  }
+
+  .login-selection-container {
+    width: 460px;
+
+    /* background: blue; */ /* TESTES DE RESPONSIVIDADE*/
+    text-align: center;
+    justify-content: center;
+    padding: 80px 10% 60px 10%;
+  }
+}
+
+/* Dispositivos móveis */
+@media only screen and (max-width: 480px) {
+  .wrapper-login {
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    /* background-color: #262c40; */ /* TESTES DE RESPONSIVIDADE*/
+  }
+
+  .login-selection-container {
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    /* background-color: #262c40; */ /* TESTES DE RESPONSIVIDADE*/
+  }
+}

@@ -1,0 +1,12 @@
+/* Text inputs do formulário */
+.form-field {
+    color: #000;
+    height: 50px;
+    width: 100%;
+    font-size: large;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0;
+    border: none;
+  }
+  

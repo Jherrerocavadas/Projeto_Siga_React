@@ -15,7 +15,7 @@ export default function Button({type, label, disabled=false, action, isSubmit=fa
   if(isSubmit){
     if(type === "primary"){
       return (
-          <button type='submit' className='PrimaryButton' disabled={disabled} onClick={handleAction}>{label}</button>
+          <button type='submit' className='btn primary' disabled={disabled} onClick={handleAction}>{label}</button>
         )
     }
     else if(type === "destructive"){
@@ -30,7 +30,7 @@ export default function Button({type, label, disabled=false, action, isSubmit=fa
   else{
     if(type === "primary"){
       return (
-          <button className='PrimaryButton' disabled={disabled} onClick={handleAction}>{label}</button>
+          <button className='btn primary' disabled={disabled} onClick={handleAction}>{label}</button>
         )
     }
     else if(type === "destructive"){
@@ -41,9 +41,5 @@ export default function Button({type, label, disabled=false, action, isSubmit=fa
     return (
       <button  className='SecondaryButton' disabled={disabled} onClick={handleAction}>{label}</button>
     )
-  }
-  
-  
-   
-   
+  }  
 }
