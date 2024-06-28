@@ -1,4 +1,4 @@
-import { complementTextColor } from '../utils/utils'
+import { complementTextColor } from '../api/utils'
 
 export function MateriaField ({key, label, bgColor="#0000ff", isClickable=false, action=null, tamanho= "10.8vw"}) {
     if(isClickable){

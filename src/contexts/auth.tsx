@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { LoginRequest, LoginResponse} from "../interfaces/usuario";
-import { api_usuarios } from '../utils/utils';
-import { realizarLogin } from '../utils/usuarioController';
+import { api_usuarios } from '../api/utils';
 import { useError } from './errors';
 
 interface AuthContextData {

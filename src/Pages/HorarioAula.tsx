@@ -1,14 +1,12 @@
 import "../styles/GradeHorarioStyle.css"
-import React from "react"
-import { CabecalhoAula } from "../Components/CabecalhoAula"
-import { GridHorarioAulas, GridDisciplinas } from "../Components/GridAulas"
-import { MateriasEspeciaisField } from "../Components/SelecaoMateriaField"
+import { CabecalhoAula } from "../components/CabecalhoAula"
+import { GridHorarioAulas, GridDisciplinas } from "../components/GridAulas"
+import { MateriasEspeciaisField } from "../components/SelecaoMateriaField"
 import { useEffect, useState } from "react";
-import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../utils/utils";
-import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../utils/HorarioAula/horarioAulaController";
-import { disciplinaCursoPlaceholder, listarDisciplinasPorCurso } from "../utils/DisciplinaCurso/disciplinaCursoController";
-import OptionsMenu from "../Components/OptionsMenu";
-import { disciplinaPlaceholder } from "../utils/Disciplina/disciplinaController";
+import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../api/utils";
+import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../api/HorarioAula/horarioAulaController";
+import { listarDisciplinasPorCurso } from "../api/DisciplinaCurso/disciplinaCursoController";
+import OptionsMenu from "../components/OptionsMenu";
 import { useParams } from "react-router-dom";
 
 export function HorarioAula() {

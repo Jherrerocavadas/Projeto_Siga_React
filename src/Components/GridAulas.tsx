@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-
 import "../styles/GradeHorarioStyle.css";
 
-import { getLabelsHorarioAula } from "../utils/HorarioAula/horarioAulaController";
 import { MateriaField } from "./MateriaField";
-import { getLabelsDiasSemana } from "../utils/utils";
 
 //Vai montar o texto do horário das aulas de acordo com o período que o aluno estuda
 export function GridHorarioAulas({ labelsHorarioAula }) {

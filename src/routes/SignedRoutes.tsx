@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { HorarioAula } from '../Pages/HorarioAula';
-import { Matricula } from '../Pages/Matricula';
-import { NotFound } from '../Pages/NotFound';
-import { Home } from '../Pages/Home';
-import HomeLogado from '../Pages/HomeLogado';
+import { HorarioAula } from '../pages/HorarioAula';
+import { Matricula } from '../pages/Matricula';
+import { NotFound } from '../pages/NotFound';
+import { Home } from '../pages/Home';
+import HomeLogado from '../pages/HomeLogado/HomeLogado';
 
 function SignedRoutes(){
   return (

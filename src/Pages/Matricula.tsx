@@ -1,12 +1,12 @@
 import "../styles/GradeHorarioStyle.css"
-import { CabecalhoAula } from "../Components/CabecalhoAula"
-import { GridHorarioAulas, GridDisciplinas, GridDisciplinasMatricula } from "../Components/GridAulas"
-import { MateriasEspeciaisField, SelecaoMateriaField } from "../Components/SelecaoMateriaField"
+import { CabecalhoAula } from "../components/CabecalhoAula"
+import { GridHorarioAulas, GridDisciplinas, GridDisciplinasMatricula } from "../components/GridAulas"
+import { MateriasEspeciaisField, SelecaoMateriaField } from "../components/SelecaoMateriaField"
 import React, { useEffect, useState } from "react";
-import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../utils/utils";
-import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../utils/HorarioAula/horarioAulaController";
-import { listarDisciplinasPorCurso } from "../utils/DisciplinaCurso/disciplinaCursoController";
-import OptionsMenu from "../Components/OptionsMenu";
+import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../api/utils";
+import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../api/HorarioAula/horarioAulaController";
+import { listarDisciplinasPorCurso } from "../api/DisciplinaCurso/disciplinaCursoController";
+import OptionsMenu from "../components/OptionsMenu";
 
 
 function realizarMatriculaAluno(aluno, disciplinas, setMatriculaConfirmada) {

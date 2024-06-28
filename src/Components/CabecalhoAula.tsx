@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "../styles/GradeHorarioStyle.css"
-import { getLabelsDiasSemana } from '../utils/utils'
+import { getLabelsDiasSemana } from '../api/utils'
 
 
 //Vai montar o Cabeçalho do grid.
