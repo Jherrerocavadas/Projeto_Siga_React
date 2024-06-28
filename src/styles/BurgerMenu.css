@@ -1,29 +1,21 @@
-/* Position and sizing of burger button */
-.bm-burger-button {
-  position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 23px;
-  top: 30px;
-}
-
 /* Cor do icone de burger */
 .bm-burger-bars {
-  background: gold;
+  background: var(--waikawa-gray-200);
 }
 
 /*  Cor do icone de burger em hover*/
 .bm-burger-bars-hover {
-  background: orange;
+  background: var(--waikawa-gray-950);
 }
 
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
+
+/* Posição e tamanho do botão de close da sidebar */
+ .bm-cross-button {
   height: 24px;
   width: 24px;
 }
 
-/* Color/shape of close button cross */
+/* Cor/forma do botão de close da sidebar */
 .bm-cross {
   background: #bdc3c7;
 }
@@ -38,44 +30,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: blue;
 }
 
+  
+
 /* cor de background do sidebar */
 .bm-menu {
-  background: gray;
+  background: var(--waikawa-gray-950);
   padding: 2.5em 0.2em 0;
   font-size: 1.15em;
 }
 
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: green;
-}
+  /* ----------< Account Details >---------- */
 
-/* Wrapper for item list */
-.bm-item-list {
-  color: orange;
-  /* padding: 0.8em; */
-}
-
-/* Individual item */
-.bm-item {
-  display: inline-block;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-/* ----------< Account Details >---------- */
-
-.accountDetailsPhoto {
-  border-radius: 50%;
-  width: 55%;
-  display: flex;
-  margin: auto;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .accountDetailsText {
   font-size: medium;
@@ -87,6 +52,99 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 #faculdade{
+  padding-top: 10px;
   padding-bottom: 10px;
   /* background-color: black; */
+}
+
+
+
+@media only screen and (min-width: 480px) { 
+  /* Posição e tamanho do botão hamburguer */
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 23px;
+    top: 30px;
+  }
+
+
+
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: green;
+  }
+
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: orange;
+    /* padding: 0.8em; */
+  }
+
+  /* Individual item */
+  .bm-item {
+    display: inline-block;
+  }
+
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ----------< Account Details >---------- */
+
+  .accountDetailsPhoto {
+    border-radius: 50%;
+    width: 55%;
+    display: flex;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Dispositivos móveis */
+@media only screen and (max-width: 480px) {
+
+   /* Posição e tamanho do botão hamburguer */
+  .bm-burger-button {
+    position: fixed;
+    width: 30px;
+    height: 24px;
+    left: 23px;
+    top: 30px;
+  }
+
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: green;
+  }
+
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: orange;
+    /* padding: 0.8em; */
+  }
+
+  /* Individual item */
+  .bm-item {
+    display: inline-block;
+  }
+
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ----------< Account Details >---------- */
+
+  .accountDetailsPhoto {
+    border-radius: 50%;
+    width: 50%;
+    display: flex;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
