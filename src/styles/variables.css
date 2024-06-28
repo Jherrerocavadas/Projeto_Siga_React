@@ -1,0 +1,23 @@
+:root{
+    --primary_button_bg_color:#839dd1;
+    --primary_button_color:#000;
+    --primary_button_hovered: #6a7fc1;
+    --primary_button_active: #6374ae;
+    --primary_button_disabled:#e7f0f8;
+    --primary_button_color_disabled:#9cb6dd;
+  
+    --waikawa-gray-50: #f2f7fb;
+  --waikawa-gray-100: #e7f0f8;
+  --waikawa-gray-200: #d3e2f2;
+  --waikawa-gray-300: #b9cfe8;
+  --waikawa-gray-400: #9cb6dd;
+  --waikawa-gray-500: #839dd1;
+  --waikawa-gray-600: #6a7fc1;
+  --waikawa-gray-700: #6374ae;
+  --waikawa-gray-800: #4a5989;
+  --waikawa-gray-900: #414e6e;
+  --waikawa-gray-950: #262c40;
+  
+  
+   
+  }
