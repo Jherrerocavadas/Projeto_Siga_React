@@ -1,0 +1,144 @@
+:root {
+  --primary_button_bg_color: #839dd1;
+  --primary_button_color: #000;
+  --primary_button_hovered: #6a7fc1;
+  --primary_button_active: #6374ae;
+  --primary_button_disabled: #e7f0f8;
+  --primary_button_color_disabled: #9cb6dd;
+
+  --waikawa-gray-50: #f2f7fb;
+  --waikawa-gray-100: #e7f0f8;
+  --waikawa-gray-200: #d3e2f2;
+  --waikawa-gray-300: #b9cfe8;
+  --waikawa-gray-400: #9cb6dd;
+  --waikawa-gray-500: #839dd1;
+  --waikawa-gray-600: #6a7fc1;
+  --waikawa-gray-700: #6374ae;
+  --waikawa-gray-800: #4a5989;
+  --waikawa-gray-900: #414e6e;
+  --waikawa-gray-950: #262c40;
+}
+
+@media only screen and (min-width: 480px) {
+  .info-gerais-container {
+    font-size: larger;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: var(--waikawa-gray-500);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .info-gerais-container .columns {
+    padding: 25px;
+    padding: 25px;
+  }
+
+  .avisos-container {
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: var(--waikawa-gray-900);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .entregas-wrapper {
+    width: 90%;
+    left: 10%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    background-color: var(--waikawa-gray-50);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aulas-container {
+    width: 90%;
+    left: 10%;
+    margin-right: 0.5%;
+    background-color: var(--waikawa-gray-600);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .entregas-container {
+    width: 90%;
+    left: 10%;
+    margin-left: 0.5%;
+    background-color: var(--waikawa-gray-800);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Dispositivos móveis */
+@media only screen and (max-width: 480px) {
+  .info-gerais-container {
+    margin-bottom: 2%;
+    font-size: larger;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: var(--waikawa-gray-500);
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .columns {
+    padding: 20px;
+  }
+
+  .avisos-container {
+    margin-bottom: 2%;
+    margin-top: 2%;
+    width: 90%;
+    left: 10%;
+    margin-left: 5%;
+    background-color: var(--waikawa-gray-900);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .entregas-wrapper {
+    width: 90%;
+    left: 10%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    background-color: var(--waikawa-gray-50);
+    border-radius: 5px;
+    padding: 20px;
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aulas-container {
+    margin-bottom: 1%;
+    background-color: var(--waikawa-gray-600);
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .entregas-container {
+    margin-top: 1%;
+    background-color: var(--waikawa-gray-800);
+    border-radius: 5px;
+    padding: 20px;
+  }
+}
