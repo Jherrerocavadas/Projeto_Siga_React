@@ -1,13 +1,13 @@
 import "./DropdownStyle.css";
 
-export interface DropdownParameters {
+export interface IDropdownParameters {
   label: string;
   value: number;
   callbackText: string;
-  object: any;
+  object?: any;
 }
 
-export interface DropdownParametersList extends Array<DropdownParameters> {}
+export interface IDropdownParametersList extends Array<IDropdownParameters> {}
 
 export default function Dropdown({
   dpbKey,

@@ -3,7 +3,7 @@ import Dropdown from "../../Dropdown";
 import TextBox from "../../TextBox";
 import "./GridHeaderStyle.css";
 
-export interface Funcionalidade {
+export interface IHeaderItem {
   type: string;
   key: string;
   label: string;
@@ -11,53 +11,54 @@ export interface Funcionalidade {
   action?: any;
   callbackText?: string;
   placeholderValue?: any;
+  normalizedValue?: string;
+  disabled?: boolean;
 }
 
-export interface FuncionalidadeList extends Array<Funcionalidade>{}
+export interface IHeaderItemList extends Array<IHeaderItem>{}
 
-export default function GridHeader({ funcionalidades }) {
+export default function GridHeader({ headerItens }) {
   var opcoes = [];
-  funcionalidades.forEach((funcionalidade, index) => {
-    if (funcionalidade.type === "Button") {
+  headerItens.forEach((headerItem, index) => {
+    if (headerItem.type === "Button") {
       opcoes.push(
         <ClickableField
-          clickableFieldKey={funcionalidade.key}
+          clickableFieldKey={headerItem.key}
           label={
-            funcionalidade.label +
-            (funcionalidade.normalizedValue
-              ? funcionalidade.normalizedValue
-              : funcionalidade.value)
+            headerItem.label +
+            (headerItem.normalizedValue
+              ? headerItem.normalizedValue
+              : headerItem.value)
           }
           action={(e) => {
-            if (funcionalidade.action) {
-              funcionalidade.action();
-              alert(funcionalidade.callbackText);
+            if (headerItem.action) {
+              headerItem.action();
+              alert(headerItem.callbackText);
             } else {
               alert("Sem função, parça");
             }
           }}
-          disabled={funcionalidade.disabled ? funcionalidade.disabled : false}
+          disabled={headerItem.disabled ? headerItem.disabled : false}
         />
       );
-    } else if (funcionalidade.type === "Dropbox") {
-      // if(funcionalidade.isVisible){
-      console.log("placeholder: ", funcionalidade.placeholderValue, "FUN:", funcionalidade)
+    } else if (headerItem.type === "Dropbox") {
+      // if(headerItem.isVisible){
       opcoes.push(
         <Dropdown
-          dpbKey={funcionalidade.key}
-          dropboxOptions={funcionalidade.value}
-          placeholder={funcionalidade.label}
-          placeholderValue={funcionalidade.placeholderValue}
-          setter={funcionalidade.action}
-          disabled={funcionalidade.disabled}
+          dpbKey={headerItem.key}
+          dropboxOptions={headerItem.value}
+          placeholder={headerItem.label}
+          placeholderValue={headerItem.placeholderValue}
+          setter={headerItem.action}
+          disabled={headerItem.disabled}
         />
       );
       // }
-    } else if (funcionalidade.type === "Text") {
+    } else if (headerItem.type === "Text") {
       opcoes.push(
         <TextBox
-          textBoxKey={funcionalidade.key}
-          label={funcionalidade.label + funcionalidade.value}
+          textBoxKey={headerItem.key}
+          label={headerItem.label + headerItem.value}
         />
       );
     }

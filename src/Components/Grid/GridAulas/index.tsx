@@ -1,7 +1,8 @@
 import { ElementGrid } from "../ElementGrid";
 import { useMediaQuery } from "react-responsive";
 import { verifyArrObj, getPositionOfMateriaConflitante } from "../../../utils";
-import "./GridAulasStyle.css"
+import "./GridAulasStyle.css";
+import { wg600 } from "../../../styles/variables";
 
 // Vai criar o grid das disciplinas, puxando as disciplinas que o aluno tem cadastrada (visualização da grade do aluno)
 export function GridDisciplinas({
@@ -13,7 +14,7 @@ export function GridDisciplinas({
 }) {
   const isSmartPhone = useMediaQuery({ query: "(max-width: 450px)" });
   const isTablet = useMediaQuery({ query: "(max-width: 1224px)" });
-  
+
   //Converter valor do semestre para Int caso ele tenha vindo como String
   semestre = parseInt(semestre);
 
@@ -30,12 +31,12 @@ export function GridDisciplinas({
   } else if (isTablet) {
     //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
     return (
-        <ColunaDiaAula
-          idColuna={diaDisciplina[index].cod} //Dia da semana
-          qtdAulasDias={qtdAulasDias}
-          disciplinas={disciplinas}
-          semestre={semestre}
-        />
+      <ColunaDiaAula
+        idColuna={diaDisciplina[index].cod} //Dia da semana
+        qtdAulasDias={qtdAulasDias}
+        disciplinas={disciplinas}
+        semestre={semestre}
+      />
     );
   }
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
@@ -222,7 +223,9 @@ export function ColunaDiaAulaMatricula({
   function mapDisciplinasPorCampo(
     disciplinas,
     linhasAula,
-    isMatriculaPorSemestre = false
+    isMatriculaPorSemestre = false,
+    label,
+    bgColor
   ) {
     let disciplinasToSelect = [];
     disciplinas.map((value, index) => {
@@ -334,7 +337,6 @@ export function ColunaDiaAulaMatricula({
           key={"SemDiscIndicator"}
           label={"Sem disciplinas disponíveis"}
           bgColor={"#545454"}
-          tamanho={"18vw"}
         />
       );
     }
@@ -356,8 +358,8 @@ export function ColunaDiaAulaMatricula({
     var materiasField = [];
 
     for (let linhasAula = 1; linhasAula <= qtdAulasDias; linhasAula++) {
-      var label = "";
-      var bgColor = "#0000ff";
+      let label = "";
+      let bgColor = wg600;
 
       // TODO: Corrigir o esquema de renderização, que só atualiza o status após clicar em alguma caixa de horário de novo
 
@@ -406,7 +408,9 @@ export function ColunaDiaAulaMatricula({
                 mapDisciplinasPorCampo(
                   disciplinasComHoraAula,
                   linhasAula,
-                  isMatriculaPorSemestre
+                  isMatriculaPorSemestre,
+                  label,
+                  bgColor
                 )
               );
             }}
