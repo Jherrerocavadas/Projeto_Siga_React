@@ -1,0 +1,35 @@
+
+
+/* Layout para tablets */
+.grid-columns-container{
+    align-items: center;
+   
+  }
+
+.grid-value-column-container{
+  align-items: center;
+ 
+}
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+  .grid-columns-container{
+
+
+  }
+
+  .grid-value-column-container{
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 5px;
+   
+  }
+}
+
+/* Layout para desktops com tela acima de 1224px de largura */
+  @media only screen and (min-width: 1224px) {
+    .grid-columns-container{
+
+
+    }
+  }
