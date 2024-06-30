@@ -13,11 +13,11 @@ export default function ArrowButton({
 
   if (direction.toLowerCase() === "right") {
     return (
-        <IoIosArrowForward fill={color} size={"10%"} onClick={action}/>
+        <IoIosArrowForward fill={color} size={"20%"} onClick={action}/>
     );
   }
 
   return (
-      <IoIosArrowBack fill={color} size={"10%"} onClick={action}/>
+      <IoIosArrowBack fill={color} size={"20%"} onClick={action}/>
   );
 }

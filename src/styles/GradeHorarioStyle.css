@@ -188,7 +188,7 @@ h1{
     display:inline-flex;
     align-items: center;
     justify-content: center;
-    width: 95%;
+    width: 100%;
     padding-left: 0;
   }
 }

@@ -3,13 +3,11 @@
 /* Layout para tablets */
 .grid-columns-container{
     align-items: center;
-    background-color: var(--waikawa-gray-500);
    
   }
 
 .grid-value-column-container{
   align-items: center;
-  background-color: var(--waikawa-gray-500);
  
 }
 
@@ -22,8 +20,8 @@
 
   .grid-value-column-container{
     align-items: center;
-    padding-right: 25px;
-    /* padding-left: 10px; */
+    padding-right: 10px;
+    padding-left: 5px;
     background-color: var(--waikawa-gray-950);
    
   }

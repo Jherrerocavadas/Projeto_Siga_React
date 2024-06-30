@@ -5,8 +5,7 @@
   /* Layout para celulares */
   @media only screen and (max-width: 450px) {
     .grid-key-column-container{
-      padding-left: 10px;
-        padding-right: 40px;
+        padding-right: 15px;
     }
 
   }

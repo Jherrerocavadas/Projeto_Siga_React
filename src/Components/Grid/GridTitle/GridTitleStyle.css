@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blue;
   height: 6vh;
   width: 100%;
   
@@ -29,6 +28,8 @@
   }
 
   .grid-columns-header{
-    width: 100%;
+    width: 0;
+    padding: 0 60px;
+    margin: 0 10px;
   }
 }
