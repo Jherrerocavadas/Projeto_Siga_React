@@ -1,8 +1,4 @@
 import "../../styles/GradeHorarioStyle.css";
-import { GridTitle } from "../../components/Grid/GridTitle";
-import { GridDisciplinas } from "../../components/Grid/GridAulas";
-import { HoraAulaColumn } from "../../components/Grid/HoraAulaColumn";
-import { MateriasEspeciaisField } from "../../components/SelecaoMateriaField";
 import { useEffect, useState } from "react";
 import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../../api/utils";
 import {
@@ -11,11 +7,10 @@ import {
 } from "../../api/HorarioAula/horarioAulaController";
 import { listarDisciplinasPorCurso } from "../../api/DisciplinaCurso/disciplinaCursoController";
 import { useAuth } from "../../contexts/auth";
-import TextBox from "../../components/TextBox";
-import ArrowButton from "../../components/ArrowButton";
 import { useMediaQuery } from "react-responsive";
-import { wg50 } from "../../styles/variables";
-
+import GridCommon from "../../components/Grid";
+import { IHeaderItemList } from "../../components/Grid/GridHeader";
+import { IDropdownParametersList } from "../../components/Dropdown";
 
 export function SeuHorario() {
   //Vão vir do cadastro do usuário
@@ -23,7 +18,6 @@ export function SeuHorario() {
   const { userDataResponse } = useAuth();
 
   const [periodo, setPeriodo] = useState({ value: "Manhã", cod: "MANHA" }); //Enum Periodo
-  // const siglaCurso = "DMD" //Puxar do cadastro do aluno ou da seleção
   const { codFaculdade } = userDataResponse.dadosComplementares.faculdade; //puxar do cadastro do aluno ou da seleção
   const { curso } = userDataResponse.dadosComplementares;
   const semestre = userDataResponse.dadosComplementares.semestre;
@@ -39,9 +33,7 @@ export function SeuHorario() {
   const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null);
 
   /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
-  const [indexDiaSemana, setIndexDiaSemana] = useState(0)// Indicador do dia da semana que está sendo visualizado
   const isMobile = useMediaQuery({ query: "(max-width: 450px)" });
-  const diasSemanasSize = diasSemana.length-1;
 
   /*------------------------------------------------------------------------------------------------------------*/
 
@@ -96,57 +88,62 @@ export function SeuHorario() {
       });
   }, []);
 
-  // Estrutura da tela
 
-  /*
-  container
-    Filter-field
-    Cabeçalho (Horário - {periodo.getNomePeriodo}, Segunda, Terça, ...) -> OK
-    LabelHorariosAula (7h40-8h30, ...) -> OK
-    GridHorarioAula (Matemática Discreta, IA, ...) Vai retornar a matéria que o usuário tem cadastrado para aquele horário. -> Andando
-  
-    GridDisciplinas (Matricula) (Matemática Discreta, IA, ...) Vai ser clicável, permitindo ao usuário setar a matéria.
-    Se setar uma matéria, deve setar automáticamente essa matéria para os outros dias também
+  const dropdownPeriodo: IDropdownParametersList = [
+    {
+      label: isMobile ? "Man " : "Manhã",
+      value: 0,
+      callbackText: "Período alterado para Manhã! ",
+      object: { value: "Manhã", cod: "MANHA" },
+    },
+    {
+      label: isMobile ? "Tar " : "Tarde",
+      value: 1,
+      callbackText: "Período alterado para Tarde! ",
+      object: { value: "Tarde", cod: "TARDE" },
+    },
+    {
+      label: isMobile ? "Noi " : "Noite",
+      value: 2,
+      callbackText: "Período alterado para Noite! ",
+      object: { value: "Noite", cod: "NOITE" },
+    },
+  ];
 
-    SelecaoMateriaField (Matricula) -> Vai conter as matérias so dia que o usuário selecionou, permitindo que
-    ele se matricule nela para o dia.
+  const headerItens: IHeaderItemList = [
+    {
+      type: "Dropbox",
+      key: "dpb002",
+      label: isMobile ? "Per: " : "Selecione o Periodo:",
+      value: dropdownPeriodo,
+      action: setPeriodo,
+      callbackText: "Alteração de Período concluída!",
+    },
+    {
+      type: "Text",
+      key: "ind_curso",
+      label: "Curso: ",
+      value: curso.siglaCurso,
+    },
+    {
+      type: "Text",
+      key: "ind_semestre",
+      label: "Semestre: ",
+      value: semestre + "°",
+    },
+  ];
 
-    Também terá as matérias especiais, onde ao clicar, ele já registra na matrícula automático
-  
-  */
 
-    //Componente de grid na visão mobile
   return (
-    <div className="grid-container">
-      <div className="grid-header">
-        <TextBox textBoxKey={"ind_curso"} label={"Curso: " + curso.siglaCurso} />
-        <TextBox textBoxKey={"ind_semestre"} label={"Semestre: " + (semestre ? semestre + "°" : "")}/>
-      </div>
-
-      <GridTitle horarioUsuario={periodo.value} diasSemana={diasSemana} index={indexDiaSemana}/>
-
-
-
-      <div className="grid-content-container">
-      <ArrowButton direction={"left"} display={isMobile} color={wg50}action={() =>{setIndexDiaSemana(indexDiaSemana > 0? indexDiaSemana-1 :0)}}/>
-        <HoraAulaColumn labelsHorarioAula={horarioAula} />
-
-        <GridDisciplinas
-          diaDisciplina={diasSemana}
-          qtdAulasDias={horarioAula.length}
-          disciplinas={disciplinasCursos}
-          semestre={semestre}
-          index={indexDiaSemana}
-          />
-      <ArrowButton direction={"right"} display={isMobile} color={wg50} action={() =>{
-        setIndexDiaSemana(indexDiaSemana < diasSemanasSize ? indexDiaSemana+1 : diasSemanasSize)
-        }}/>
-      </div>
-
-      <MateriasEspeciaisField
-        disciplinasEspeciais={disciplinasEspeciais}
-        isClickable={false}
-      />
-    </div>
+    <GridCommon
+      headerItens={headerItens}
+      periodo={periodo}
+      diasSemana={diasSemana}
+      horarioAula={horarioAula}
+      disciplinasCursos={disciplinasCursos}
+      semestre={semestre}
+      disciplinasEspeciais={disciplinasEspeciais}
+      isMobile={isMobile}
+    />
   );
 }

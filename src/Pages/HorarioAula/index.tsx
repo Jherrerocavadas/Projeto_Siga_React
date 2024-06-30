@@ -1,20 +1,15 @@
-import "../../styles/GradeHorarioStyle.css"
-// import "./HorarioAulaStyle.css"
-import { GridTitle } from "../../components/Grid/GridTitle"
-import { GridDisciplinas } from "../../components/Grid/GridAulas"
-import { HoraAulaColumn } from "../../components/Grid/HoraAulaColumn";
-
-import { MateriasEspeciaisField } from "../../components/SelecaoMateriaField"
 import { useEffect, useState } from "react";
 import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../../api/utils";
-import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../../api/HorarioAula/horarioAulaController";
+import {
+  getLabelsHorarioAula,
+  horarioAulaPlaceholder,
+} from "../../api/HorarioAula/horarioAulaController";
 import { listarDisciplinasPorCurso } from "../../api/DisciplinaCurso/disciplinaCursoController";
-import GridHeader, { FuncionalidadeList } from "../../components/Grid/GridHeader";
+import { IHeaderItemList } from "../../components/Grid/GridHeader";
 import { useParams } from "react-router-dom";
-import ArrowButton from "../../components/ArrowButton";
 import { useMediaQuery } from "react-responsive";
-import { wg50 } from "../../styles/variables";
-import { DropdownParametersList } from "../../components/Dropdown";
+import { IDropdownParametersList } from "../../components/Dropdown";
+import GridCommon from "../../components/Grid";
 
 export function HorarioAula() {
   //Vão vir do cadastro do usuário
@@ -22,96 +17,131 @@ export function HorarioAula() {
   /* ---------------------------------------------<Dados Mockados>--------------------------------------------- */
   const [periodo, setPeriodo] = useState({ value: "Manhã", cod: "MANHA" }); //Enum Periodo
   // const siglaCurso = "DMD" //Puxar do cadastro do aluno ou da seleção
-  const codFaculdade = "FAT128" //puxar do cadastro do aluno ou da seleção
-  const [semestre, setSemestre] = useState<Number>(1) //puxar do período selecionado
-  const curso = { siglaCurso: useParams().siglaCurso, qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
+  const codFaculdade = "FAT128"; //puxar do cadastro do aluno ou da seleção
+  const [semestre, setSemestre] = useState<Number>(1); //puxar do período selecionado
+  const curso = { siglaCurso: useParams().siglaCurso, qtdSemestres: 6 }; // puxar do curso (pelo siglaCurso)
 
   /*------------------------------------------------------------------------------------------------------------*/
-  
 
-  const [diasSemana, setDiasSemana] = useState(diasSemanaPlaceholder)
-  const [horarioAula, setHorarioAula] = useState(horarioAulaPlaceholder)
-  const [disciplinasCursos, setDisciplinasCursos] = useState(null)
+  const [diasSemana, setDiasSemana] = useState(diasSemanaPlaceholder);
+  const [horarioAula, setHorarioAula] = useState(horarioAulaPlaceholder);
+  const [disciplinasCursos, setDisciplinasCursos] = useState(null);
 
-  const [disciplinas, setDisciplinas] = useState(null)
+  const [disciplinas, setDisciplinas] = useState(null);
 
-  const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null)
+  const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null);
 
-   /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
-   const [indexDiaSemana, setIndexDiaSemana] = useState(0)// Indicador do dia da semana que está sendo visualizado
-   const isMobile = useMediaQuery({ query: "(max-width: 450px)" });
-   const diasSemanasSize = diasSemana.length-1;
- 
-   /*------------------------------------------------------------------------------------------------------------*/
+  /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
+  const isMobile = useMediaQuery({ query: "(max-width: 450px)" });
+  /*------------------------------------------------------------------------------------------------------------*/
 
-  const dropdownSemestre = []
-
+  const dropdownSemestre: IDropdownParametersList = [];
 
   for (let semestre = 1; semestre <= curso.qtdSemestres; semestre++) {
-    dropdownSemestre.push(
-      { label: isMobile? `${semestre}°`: `${semestre}° Semestre`, value: semestre, callbackText: `Semestre alterado para ${semestre}º Semestre! ` },
-    )
-
+    dropdownSemestre.push({
+      label: isMobile ? `${semestre}°` : `${semestre}° Semestre`,
+      value: semestre,
+      callbackText: `Semestre alterado para ${semestre}º Semestre! `,
+    });
   }
 
-  const dropdownPeriodo: DropdownParametersList = [
-    { label: isMobile? "Man ":"Manhã", value: 0, callbackText: "Período alterado para Manhã! ", object: { value: "Manhã", cod: "MANHA" } },
-    { label: isMobile? "Tar ":"Tarde", value: 1, callbackText: "Período alterado para Tarde! ", object: { value: "Tarde", cod: "TARDE" } },
-    { label: isMobile? "Noi ":"Noite", value: 2, callbackText: "Período alterado para Noite! ", object: { value: "Noite", cod: "NOITE" } },
-  ]
+  const dropdownPeriodo: IDropdownParametersList = [
+    {
+      label: isMobile ? "Man " : "Manhã",
+      value: 0,
+      callbackText: "Período alterado para Manhã! ",
+      object: { value: "Manhã", cod: "MANHA" },
+    },
+    {
+      label: isMobile ? "Tar " : "Tarde",
+      value: 1,
+      callbackText: "Período alterado para Tarde! ",
+      object: { value: "Tarde", cod: "TARDE" },
+    },
+    {
+      label: isMobile ? "Noi " : "Noite",
+      value: 2,
+      callbackText: "Período alterado para Noite! ",
+      object: { value: "Noite", cod: "NOITE" },
+    },
+  ];
   //TODO: VERIFICAR SEMESTRE COMO 0 QUANDO O PLACEHOLDER É SELECIONADO
-  const funcionalidades: FuncionalidadeList = [
-    { type: "Dropbox", key: "dpb001", label: isMobile? "Sem: ":"Selecione o Semestre:", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Semestre concluída!"},
-    { type: "Dropbox", key: "dpb002", label: isMobile? "Per: ": "Selecione o Periodo:", value: dropdownPeriodo, action: setPeriodo, callbackText: "Alteração de Período concluída!" },
-    { type: "Text", key: "txt001", label: "Curso: ", value: curso.siglaCurso},
-    { type: "Text", key: "txt002", label: isMobile? "Sem: ": "Semestre: ", value: semestre?  semestre + "°": ""},
-  ]
+  const headerItens: IHeaderItemList = [
+    {
+      type: "Dropbox",
+      key: "dpb001",
+      label: isMobile ? "Sem: " : "Selecione o Semestre:",
+      value: dropdownSemestre,
+      action: setSemestre,
+      callbackText: "Alteração de Semestre concluída!",
+    },
+    {
+      type: "Dropbox",
+      key: "dpb002",
+      label: isMobile ? "Per: " : "Selecione o Periodo:",
+      value: dropdownPeriodo,
+      action: setPeriodo,
+      callbackText: "Alteração de Período concluída!",
+    },
+    { type: "Text", key: "txt001", label: "Curso: ", value: curso.siglaCurso },
+    {
+      type: "Text",
+      key: "txt002",
+      label: isMobile ? "Sem: " : "Semestre: ",
+      value: semestre ? semestre + "°" : "",
+    },
+  ];
 
   /* TODO: fazer algum esquema para verificar se a API tá fora ou não, e se estiver, 
    ficar tentando de tempos em tempos chamar ela até voltar */
 
   useEffect(() => {
     // console.log(diasSemana)
-    getLabelsDiasSemana().then((response) => {
-      setDiasSemana(response)
-    }).catch((error) => {
-      console.log("Erro ao criar grid de aulas: " + error)
-    })
-  }, [])
-
-
+    getLabelsDiasSemana()
+      .then((response) => {
+        setDiasSemana(response);
+      })
+      .catch((error) => {
+        console.log("Erro ao criar grid de aulas: " + error);
+      });
+  }, []);
 
   useEffect(() => {
-    console.log("periodo.value: " + periodo.value +  "; periodo.cod:" + periodo.cod)
-    getLabelsHorarioAula(periodo.cod).then((response) => {
-      setHorarioAula(response)
-    }).catch((error) => {
-      console.log("Erro ao receber horário de aula: " + error)
-    })
-  }, [periodo])
+    console.log(
+      "periodo.value: " + periodo.value + "; periodo.cod:" + periodo.cod
+    );
+    getLabelsHorarioAula(periodo.cod)
+      .then((response) => {
+        setHorarioAula(response);
+      })
+      .catch((error) => {
+        console.log("Erro ao receber horário de aula: " + error);
+      });
+  }, [periodo]);
 
   useEffect(() => {
-    listarDisciplinasPorCurso(false, curso.siglaCurso, codFaculdade).then((response) => {
-      setDisciplinasCursos(response)
+    listarDisciplinasPorCurso(false, curso.siglaCurso, codFaculdade)
+      .then((response) => {
+        setDisciplinasCursos(response);
 
-      var tempDisciplinas = []
-      response.forEach(disciplinaCurso => {
-        tempDisciplinas.push(disciplinaCurso.disciplina)
+        var tempDisciplinas = [];
+        response.forEach((disciplinaCurso) => {
+          tempDisciplinas.push(disciplinaCurso.disciplina);
+        });
+        setDisciplinas(tempDisciplinas);
+
+        var tempDisciplinasEspeciais = [];
+        tempDisciplinas.forEach((disciplina) => {
+          if (disciplina.isDisciplinaEspecial)
+            tempDisciplinasEspeciais.push(disciplina);
+        });
+
+        setDisciplinasEspeciais(tempDisciplinasEspeciais);
+      })
+      .catch((error) => {
+        console.error("Erro ao setar disciplinas Cursos: " + error);
       });
-      setDisciplinas(tempDisciplinas)
-
-      var tempDisciplinasEspeciais = []
-      tempDisciplinas.forEach(disciplina => {
-        if (disciplina.isDisciplinaEspecial)
-          tempDisciplinasEspeciais.push(disciplina)
-      });
-
-      setDisciplinasEspeciais(tempDisciplinasEspeciais)
-
-    }).catch((error) => {
-      console.error("Erro ao setar disciplinas Cursos: " + error)
-    })
-  }, [])
+  }, []);
 
   // Estrutura da tela
 
@@ -133,43 +163,61 @@ export function HorarioAula() {
   */
 
   return (
+    <GridCommon
+      headerItens={headerItens}
+      periodo={periodo}
+      diasSemana={diasSemana}
+      horarioAula={horarioAula}
+      disciplinasCursos={disciplinasCursos}
+      semestre={semestre}
+      disciplinasEspeciais={disciplinasEspeciais}
+      isMobile={isMobile}
+    />
+    // <div className="grid-container">
+    //   <GridHeader funcionalidades={funcionalidades} />
 
-    <div className="grid-container">
+    //   <GridTitle
+    //     horarioUsuario={periodo.value}
+    //     diasSemana={diasSemana}
+    //     index={indexDiaSemana}
+    //   />
 
-      <GridHeader
-        funcionalidades={funcionalidades} />
+    //   <div className="grid-content-container">
+    //     <ArrowButton
+    //       direction={"left"}
+    //       display={isMobile}
+    //       color={wg50}
+    //       action={() => {
+    //         setIndexDiaSemana(indexDiaSemana > 0 ? indexDiaSemana - 1 : 0);
+    //       }}
+    //     />
+    //     <HoraAulaColumn labelsHorarioAula={horarioAula} />
 
+    //     <GridDisciplinas
+    //       diaDisciplina={diasSemana}
+    //       qtdAulasDias={horarioAula.length}
+    //       disciplinas={disciplinasCursos}
+    //       semestre={semestre}
+    //       index={indexDiaSemana}
+    //     />
+    //     <ArrowButton
+    //       direction={"right"}
+    //       display={isMobile}
+    //       color={wg50}
+    //       action={() => {
+    //         setIndexDiaSemana(
+    //           indexDiaSemana < diasSemanasSize
+    //             ? indexDiaSemana + 1
+    //             : diasSemanasSize
+    //         );
+    //       }}
+    //     />
+    //   </div>
 
-
-      <GridTitle horarioUsuario={periodo.value}
-        diasSemana={diasSemana}
-        index={indexDiaSemana} />
-
-<div className="grid-content-container">
-      <ArrowButton direction={"left"} display={isMobile} color={wg50}action={() =>{setIndexDiaSemana(indexDiaSemana > 0? indexDiaSemana-1 :0)}}/>
-        <HoraAulaColumn labelsHorarioAula={horarioAula} />
-
-        <GridDisciplinas
-          diaDisciplina={diasSemana}
-          qtdAulasDias={horarioAula.length}
-          disciplinas={disciplinasCursos}
-          semestre={semestre}
-          index={indexDiaSemana}
-          />
-      <ArrowButton direction={"right"} display={isMobile} color={wg50} action={() =>{
-        setIndexDiaSemana(indexDiaSemana < diasSemanasSize ? indexDiaSemana+1 : diasSemanasSize)
-        }}/>
-      </div>
-
-
-      <MateriasEspeciaisField
-        disciplinasEspeciais={disciplinasEspeciais}
-        isClickable={false} />
-
-    </div>
-
-
-
-  )
-
+    //   <MateriasEspeciaisField
+    //     disciplinasEspeciais={disciplinasEspeciais}
+    //     isClickable={false}
+    //   />
+    // </div>
+  );
 }
