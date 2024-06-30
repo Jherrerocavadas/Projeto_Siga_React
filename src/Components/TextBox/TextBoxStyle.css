@@ -1,0 +1,39 @@
+
+/* Layout para tablets */
+.textbox {
+  background-color: var(--waikawa-gray-600);
+  display: flex;
+  border-radius: 5px;
+  height: 6vh;
+  width: 90%;
+  margin: 10px 11px 10px 11px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+  .textbox {
+    text-align: center;
+  }
+  
+
+}
+
+/* Layout para desktops com tela acima de 1224px de largura */
+@media only screen and (min-width: 1224px) {
+  .textbox {
+    background-color: var(--waikawa-gray-600);
+    display: flex;
+    border-radius: 5px;
+    height: 6vh;
+    width: 10.8vw;
+    margin: 10px 11px 10px 11px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+  
+}

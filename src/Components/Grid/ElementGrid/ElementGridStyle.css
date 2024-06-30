@@ -1,0 +1,43 @@
+
+
+/* Layout para tablets */
+.grid-element{
+    display: flex;
+    background-color: var(--waikawa-gray-500);
+    border-radius: 15px;
+    height: 6vh;
+    width: 90%;
+    margin: 10px 11px;
+    border-color: skyblue;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+  .grid-element{
+    display: flex;
+    background-color: var(--waikawa-gray-700);
+    border-radius: 15px;
+    height: 6vh;
+    width: 100%;
+    margin: 10px 11px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    margin-top: 12px;
+
+  }
+}
+
+/* Layout para desktops com tela acima de 1224px de largura */
+  @media only screen and (min-width: 1224px) {
+    .grid-element{
+
+      width: 10.8vw;
+      margin: 10px 11px 10px 11px;
+
+    }
+  }

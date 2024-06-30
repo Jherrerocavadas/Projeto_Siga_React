@@ -1,5 +1,5 @@
 import React from "react";
-import { MateriaField } from "./MateriaField";
+import { ElementGrid } from "./Grid/ElementGrid";
 
 export function SelecaoMateriaField ({ value=null, disciplinasParaSelecionar, isClickable=true, action=undefined }){
   // const count = 2;
@@ -49,7 +49,7 @@ export function MateriasEspeciaisField({ disciplinasEspeciais, action=undefined,
    { return (
       <div className="Materias-especiais-field">
         {disciplinasEspeciais.map((value, index) => (
-          <MateriaField
+          <ElementGrid
             key={value.codDisciplina}
             label={
               value.nomeDisciplina.length > 12

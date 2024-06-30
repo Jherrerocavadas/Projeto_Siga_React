@@ -1,13 +1,20 @@
-import "../styles/GradeHorarioStyle.css"
-import { CabecalhoAula } from "../components/CabecalhoAula"
-import { GridHorarioAulas, GridDisciplinas } from "../components/GridAulas"
-import { MateriasEspeciaisField } from "../components/SelecaoMateriaField"
+import "../../styles/GradeHorarioStyle.css"
+// import "./HorarioAulaStyle.css"
+import { GridTitle } from "../../components/Grid/GridTitle"
+import { GridDisciplinas } from "../../components/Grid/GridAulas"
+import { HoraAulaColumn } from "../../components/Grid/HoraAulaColumn";
+
+import { MateriasEspeciaisField } from "../../components/SelecaoMateriaField"
 import { useEffect, useState } from "react";
-import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../api/utils";
-import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../api/HorarioAula/horarioAulaController";
-import { listarDisciplinasPorCurso } from "../api/DisciplinaCurso/disciplinaCursoController";
-import OptionsMenu from "../components/OptionsMenu";
+import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../../api/utils";
+import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../../api/HorarioAula/horarioAulaController";
+import { listarDisciplinasPorCurso } from "../../api/DisciplinaCurso/disciplinaCursoController";
+import GridHeader, { FuncionalidadeList } from "../../components/Grid/GridHeader";
 import { useParams } from "react-router-dom";
+import ArrowButton from "../../components/ArrowButton";
+import { useMediaQuery } from "react-responsive";
+import { wg50 } from "../../styles/variables";
+import { DropdownParametersList } from "../../components/Dropdown";
 
 export function HorarioAula() {
   //Vão vir do cadastro do usuário
@@ -16,7 +23,7 @@ export function HorarioAula() {
   const [periodo, setPeriodo] = useState({ value: "Manhã", cod: "MANHA" }); //Enum Periodo
   // const siglaCurso = "DMD" //Puxar do cadastro do aluno ou da seleção
   const codFaculdade = "FAT128" //puxar do cadastro do aluno ou da seleção
-  const [semestre, setSemestre] = useState(1) //puxar do período selecionado
+  const [semestre, setSemestre] = useState<Number>(1) //puxar do período selecionado
   const curso = { siglaCurso: useParams().siglaCurso, qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
 
   /*------------------------------------------------------------------------------------------------------------*/
@@ -30,35 +37,41 @@ export function HorarioAula() {
 
   const [disciplinasEspeciais, setDisciplinasEspeciais] = useState(null)
 
+   /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
+   const [indexDiaSemana, setIndexDiaSemana] = useState(0)// Indicador do dia da semana que está sendo visualizado
+   const isMobile = useMediaQuery({ query: "(max-width: 450px)" });
+   const diasSemanasSize = diasSemana.length-1;
+ 
+   /*------------------------------------------------------------------------------------------------------------*/
+
   const dropdownSemestre = []
 
 
   for (let semestre = 1; semestre <= curso.qtdSemestres; semestre++) {
     dropdownSemestre.push(
-      { label: `${semestre}°Semestre`, value: semestre, callbackText: `Semestre alterado para ${semestre}º Semestre! ` },
+      { label: isMobile? `${semestre}°`: `${semestre}° Semestre`, value: semestre, callbackText: `Semestre alterado para ${semestre}º Semestre! ` },
     )
 
   }
 
-  const dropdownPeriodo = [
-    { label: "Manhã", value: 0, callbackText: "Período alterado para Manhã! ", object: { value: "Manhã", cod: "MANHA" } },
-    { label: "Tarde", value: 1, callbackText: "Período alterado para Tarde! ", object: { value: "Tarde", cod: "TARDE" } },
-    { label: "Noite", value: 2, callbackText: "Período alterado para Noite! ", object: { value: "Noite", cod: "NOITE" } },
+  const dropdownPeriodo: DropdownParametersList = [
+    { label: isMobile? "Man ":"Manhã", value: 0, callbackText: "Período alterado para Manhã! ", object: { value: "Manhã", cod: "MANHA" } },
+    { label: isMobile? "Tar ":"Tarde", value: 1, callbackText: "Período alterado para Tarde! ", object: { value: "Tarde", cod: "TARDE" } },
+    { label: isMobile? "Noi ":"Noite", value: 2, callbackText: "Período alterado para Noite! ", object: { value: "Noite", cod: "NOITE" } },
   ]
-
-
-  const funcionalidades = [
-    { type: "Dropbox", key: "dpb001", label: "Selecione o Semestre:", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Período concluída!" },
-    { type: "Dropbox", key: "dpb002", label: "Selecione o Periodo:", value: dropdownPeriodo, action: setPeriodo, callbackText: "Alteração de Período concluída!" },
+  //TODO: VERIFICAR SEMESTRE COMO 0 QUANDO O PLACEHOLDER É SELECIONADO
+  const funcionalidades: FuncionalidadeList = [
+    { type: "Dropbox", key: "dpb001", label: isMobile? "Sem: ":"Selecione o Semestre:", value: dropdownSemestre, action: setSemestre, callbackText: "Alteração de Semestre concluída!"},
+    { type: "Dropbox", key: "dpb002", label: isMobile? "Per: ": "Selecione o Periodo:", value: dropdownPeriodo, action: setPeriodo, callbackText: "Alteração de Período concluída!" },
     { type: "Text", key: "txt001", label: "Curso: ", value: curso.siglaCurso},
-    { type: "Text", key: "txt002", label: "Semestre: ", value: semestre?  semestre + "°": ""},
+    { type: "Text", key: "txt002", label: isMobile? "Sem: ": "Semestre: ", value: semestre?  semestre + "°": ""},
   ]
 
   /* TODO: fazer algum esquema para verificar se a API tá fora ou não, e se estiver, 
    ficar tentando de tempos em tempos chamar ela até voltar */
 
   useEffect(() => {
-    console.log(diasSemana)
+    // console.log(diasSemana)
     getLabelsDiasSemana().then((response) => {
       setDiasSemana(response)
     }).catch((error) => {
@@ -104,7 +117,7 @@ export function HorarioAula() {
 
   /*
   container
-    OptionsMenu (Só se tiver vendo o horário de aula fixo por semestre/período)
+    GridHeader (Só se tiver vendo o horário de aula fixo por semestre/período)
     Cabeçalho (Horário - {periodo.getNomePeriodo}, Segunda, Terça, ...) -> OK
     LabelHorariosAula (7h40-8h30, ...) -> OK
     GridHorarioAula (Matemática Discreta, IA, ...) Vai retornar a matéria que o usuário tem cadastrado para aquele horário. -> Andando
@@ -119,29 +132,33 @@ export function HorarioAula() {
   
   */
 
-
   return (
 
-    <div className="container">
+    <div className="grid-container">
 
-      <OptionsMenu
+      <GridHeader
         funcionalidades={funcionalidades} />
 
 
 
-      <CabecalhoAula horarioUsuario={periodo.value}
-        diasSemana={diasSemana} />
+      <GridTitle horarioUsuario={periodo.value}
+        diasSemana={diasSemana}
+        index={indexDiaSemana} />
 
-      <div className="container_columns" style={{ display: "inline-flex" }}>
-        <GridHorarioAulas labelsHorarioAula={horarioAula} />
-
-
+<div className="grid-content-container">
+      <ArrowButton direction={"left"} display={isMobile} color={wg50}action={() =>{setIndexDiaSemana(indexDiaSemana > 0? indexDiaSemana-1 :0)}}/>
+        <HoraAulaColumn labelsHorarioAula={horarioAula} />
 
         <GridDisciplinas
           diaDisciplina={diasSemana}
           qtdAulasDias={horarioAula.length}
           disciplinas={disciplinasCursos}
-          semestre={semestre} />
+          semestre={semestre}
+          index={indexDiaSemana}
+          />
+      <ArrowButton direction={"right"} display={isMobile} color={wg50} action={() =>{
+        setIndexDiaSemana(indexDiaSemana < diasSemanasSize ? indexDiaSemana+1 : diasSemanasSize)
+        }}/>
       </div>
 
 

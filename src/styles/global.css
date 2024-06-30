@@ -67,7 +67,7 @@ footer{
     padding: 20px;
     text-align: center;
 } */
-
+/* 
 .cursos_css{
   font-size: 18px;
   display: flex;
@@ -78,28 +78,26 @@ footer{
   background-color: midnightblue;
   height: 200px;
   width: 350px;
-  /* height: 15vw;
-  width: 26.25vw; */
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 7px rgba(0, 0, 0 , 0.4);
   border-radius: 20px;
   float: left;
 
-}
+} */
 
-.folder_cursos_css{
-  /* margin: auto; */
+/* .folder_cursos_css{
+
   margin-left: 30px;
   margin-right: 30px;
-  /* background-color: yellow; */ /* Para teste*/
+
 
   align-items: center;
   justify-content: center;
   float: left;
 
-}
-
+} */
+/* 
 .folder_cursos_css a{
   padding: 35px;
-}
+} */

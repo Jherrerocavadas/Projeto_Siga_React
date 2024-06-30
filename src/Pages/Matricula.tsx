@@ -1,12 +1,13 @@
 import "../styles/GradeHorarioStyle.css"
-import { CabecalhoAula } from "../components/CabecalhoAula"
-import { GridHorarioAulas, GridDisciplinas, GridDisciplinasMatricula } from "../components/GridAulas"
+import { GridTitle } from "../components/Grid/GridTitle"
+import { GridDisciplinas, GridDisciplinasMatricula } from "../components/Grid/GridAulas"
+import { HoraAulaColumn } from "../components/Grid/HoraAulaColumn";
 import { MateriasEspeciaisField, SelecaoMateriaField } from "../components/SelecaoMateriaField"
 import React, { useEffect, useState } from "react";
 import { diasSemanaPlaceholder, getLabelsDiasSemana } from "../api/utils";
 import { getLabelsHorarioAula, horarioAulaPlaceholder } from "../api/HorarioAula/horarioAulaController";
 import { listarDisciplinasPorCurso } from "../api/DisciplinaCurso/disciplinaCursoController";
-import OptionsMenu from "../components/OptionsMenu";
+import GridHeader from "../components/Grid/GridHeader";
 
 
 function realizarMatriculaAluno(aluno, disciplinas, setMatriculaConfirmada) {
@@ -27,6 +28,11 @@ export function Matricula({ }) {
   const [semestre, setSemestre] = useState(1) //puxar do período selecionado
   const curso = { siglaCurso: "DMD", qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
   const aluno = null;
+
+  /*------------------------------------------------------------------------------------------------------------*/
+
+  /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
+  const [indexDiaSemana, setIndexDiaSemana] = useState(0)// Indicador do dia da semana que está sendo visualizado
 
   /*------------------------------------------------------------------------------------------------------------*/
 
@@ -127,7 +133,7 @@ export function Matricula({ }) {
 
   /*
   container
-    OptionsMenu (Só se tiver vendo o horário de aula fixo por semestre/período)
+    GridHeader (Só se tiver vendo o horário de aula fixo por semestre/período)
     Cabeçalho (Horário - {periodo.getNomePeriodo}, Segunda, Terça, ...) -> OK
     LabelHorariosAula (7h40-8h30, ...) -> OK
     GridHorarioAula (Matemática Discreta, IA, ...) Vai retornar a matéria que o usuário tem cadastrado para aquele horário. -> Andando
@@ -145,18 +151,18 @@ export function Matricula({ }) {
 
   return (
 
-    <div className="container">
+    <div className="grid-container">
 
-      <OptionsMenu
+      <GridHeader
         funcionalidades={funcionalidades} />
 
 
 
-      <CabecalhoAula horarioUsuario={periodo.value}
+      <GridTitle horarioUsuario={periodo.value}
         diasSemana={diasSemana} />
 
-      <div className="container_columns" style={{ display: "inline-flex" }}>
-        <GridHorarioAulas labelsHorarioAula={horarioAula} />
+      <div className="grid-content-container">
+        <HoraAulaColumn labelsHorarioAula={horarioAula} />
 
 
 
@@ -168,7 +174,8 @@ export function Matricula({ }) {
           disciplinasMatriculadas={disciplinasMatriculadas}
           setDisciplinasMatriculadas={setDisciplinasMatriculadas}
           setDisciplinasToSelect={setDisciplinasParaSelecionar}
-          isMatriculaPorSemestre={isMatriculaPorSemestre} />
+          isMatriculaPorSemestre={isMatriculaPorSemestre}
+          index={indexDiaSemana} />
       </div>
 
       

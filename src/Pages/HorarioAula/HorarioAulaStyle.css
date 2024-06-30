@@ -1,0 +1,231 @@
+
+:root{
+
+    /* Valores de teste */
+    /* --materia_field_bg_color: aqua;
+    --filter_field_bg_color: #922922;
+    --container_grid_aulas: darkblue;
+    --hora_aula_field: blue;
+    --hora_aula_label_field: green;
+    --button_base_color:crimson;
+    --button_hovered:green; */
+  
+  
+    /* --materia_field_bg_color: null;
+    --materia_especial_field_bg_color:skyblue;
+    --filter_field_bg_color: null;
+    --container_grid_aulas: darkblue;
+    --hora_aula_field: blue;
+    --hora_aula_label_field: darkgreen;
+    --button_base_color:crimson;
+    --button_hovered:green;
+    --button_base_color_disabled: rgba(110, 117, 119, 0.829); */
+  } 
+  
+  
+  .Selecao-materia-field{
+    background-color: var(--materia_field_bg_color);
+    display: flex;
+    min-height: 10vh;
+    width: 86vw;
+    margin: auto;
+    margin-left: 1.5vw;
+    /* padding-left: 10px; */
+    /* margin-top: 5px; */
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+  
+  
+  .Materias-especiais-field{
+    background-color: var(--materia_especial_field_bg_color);
+    display: flex;
+    min-height: 10vh;
+    width: 86vw;
+    margin: auto;
+    margin-left: 1.5vw;
+    /* padding-left: 10px; */
+    margin-top: 5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    
+  
+  }
+  
+  .Materia-disponivel{
+  
+    display: inline-flex;
+    background-color: crimson;
+    border-radius: 15px;
+    height: 6vh;
+    width: 10.8vw;
+    margin: 10px 8px 10px 8px;
+    border-color: skyblue;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    
+  }
+  
+  .Materia-disponivel.button{
+  
+    display: inline-flex;
+    background-color: var(--button_base_color);
+    border-radius: 15px;
+    border-style: none; /**/
+    height: 6vh;
+    width: 10.8vw;
+    margin: 10px 11px 10px 11px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    font-size:14.5px;
+  
+    display: flex;
+  
+  
+  
+  }
+  
+  .Materia-disponivel.button:active{
+    transform: scale(.96)
+   }
+   
+  
+  .Materia-disponivel.button:hover{
+   background-color: var(--button_hovered);
+  }
+  
+  .Materia-disponivel.button:disabled{
+    background-color: var(--button_hovered);
+   }
+   
+  
+  
+  .Filters-field{
+    background-color: var(--filter_field_bg_color);
+    display:flex;
+    min-height: 10vh;
+    width: 88vw;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: -5px;
+    align-items: center;
+    /* justify-content: center; */
+    border-radius: 15px;
+    /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+  }
+  
+  .Clickable-field{
+    display: flex;
+    background-color: var(--hora_aula_field);
+    border-radius: 15px;
+    height: 6vh;
+    width: 10.8vw;
+    margin: 10px 11px 10px 11px;
+    border-color: skyblue;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+  
+  .Clickable-field.button:disabled{
+    background-color: var(--button_base_color_disabled);
+   }
+  
+  .dropbox{
+    /* display: flex; */
+    background-color: var(--hora_aula_field);
+    padding-left: 5px;
+    /* border-radius: 15px; */
+  
+    height: 5vh;
+    width: 13vw;
+    margin: 10px 11px 10px 11px;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+  }
+
+  
+  /* TODO: verificar esses estilos */
+  
+  
+  .container{
+    display: flow-root;
+    background-color: var(--container_grid_aulas);
+    min-height: 100vh;
+    width: 90vw;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+/*   
+  .hora_aula{
+    display: flex;
+    background-color: var(--waikawa-gray-600);
+    border-radius: 15px;
+    height: 6vh;
+    width: 10.8vw;
+    margin: 10px 11px 10px 11px;
+    border-color: skyblue;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  } */
+  .titles{
+    /* display: flex; */
+    /* background-color: blue; */
+    /* border-radius: 15px; */
+    /* height: 6vh; */
+    /* width: 10.8vw; */
+    /* margin: auto; */
+    margin: 0px 11px 0px 11px;
+    /* margin: 10px 8px 8px 8px; */
+    /* border-color: skyblue; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+    /* position: relative; */
+    /* left: 1vw; */
+  }
+  
+  .hora_aula.days{
+    display: inline-flex;
+    background-color: var(--hora_aula_label_field);
+    margin-top: 12px;
+    width: 10.8vw;
+  
+  }
+  
+  h1{
+    margin-bottom: 25px;
+  }
+  
+  .container_columns{
+    display:inline-flex;
+    position: relative;
+    padding-left: 10px;
+  }
+  /* 
+  .columns{
+    display: flow-root;
+    background-color: lightgreen;
+    margin-right: 3.6px;
+  
+  } */
+  
+  .disciplinas{
+    display: inline-flex;
+    background-color: crimson;
+    margin-top: 1px;
+    width: 9.9vw;
+  
+  }
+  

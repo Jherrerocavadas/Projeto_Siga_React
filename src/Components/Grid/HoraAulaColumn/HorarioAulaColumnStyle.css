@@ -1,0 +1,20 @@
+.grid-key-column-container{
+    padding-right: 10px
+}
+
+  /* Layout para celulares */
+  @media only screen and (max-width: 450px) {
+    .grid-key-column-container{
+      padding-left: 10px;
+        padding-right: 40px;
+    }
+
+  }
+  
+  /* Layout para desktops com tela acima de 1224px de largura */
+  @media only screen and (min-width: 1224px) {
+  
+    .grid-key-column-container{
+        padding-right: 0
+    }
+  }

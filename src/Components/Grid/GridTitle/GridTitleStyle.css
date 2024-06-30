@@ -1,0 +1,34 @@
+.titles{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
+  height: 6vh;
+  width: 100%;
+  
+}
+
+.grid-columns-header{
+  display: flex;
+  background-color: var(--waikawa-gray-700);
+  border-radius: 15px;
+  height: 6vh;
+  width: 10.8vw;
+  margin: 10px 11px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  margin-top: 12px;
+  
+}
+
+/* Layout para celulares */
+ @media only screen and (max-width: 450px) {
+  .titles{
+    width: 85%;
+  }
+
+  .grid-columns-header{
+    width: 100%;
+  }
+}

@@ -1,0 +1,23 @@
+.grid-header {
+  /* background-color: var(--filter_field_bg_color); */
+  /* background-color: yellow; */
+  display: flex;
+  min-height: 10vh;
+  /* width: 88vw; */
+  margin: auto;
+  padding-top: 5px;
+  padding-bottom: -5px;
+  margin-left: 15px;
+  align-items: center;
+  /* justify-content: center; */
+  /* border-radius: 15px; */
+  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+}
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+  .grid-header {
+    width: 100%;
+    margin: 0;
+  }
+}

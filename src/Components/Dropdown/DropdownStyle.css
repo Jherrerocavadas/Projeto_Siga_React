@@ -1,0 +1,31 @@
+.dropbox{
+    /* display: flex; */
+    background-color: var(--waikawa-gray-600);
+    padding-left: 5px;
+    border-radius: 5px;
+  
+    height: 6vh;
+    width: 13vw;
+    margin: 10px 11px 10px 11px;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
+  }
+
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+  .dropbox{
+    width: 90%;
+  }
+}
+
+/* Layout para celulares */
+@media only screen and (min-width: 1224px) {
+  .dropbox{
+    width: 13vw;
+  }
+}
+
+
+ 

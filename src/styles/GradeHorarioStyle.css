@@ -105,21 +105,6 @@
  }
  
 
-
-.Filters-field{
-  background-color: var(--filter_field_bg_color);
-  display:flex;
-  min-height: 10vh;
-  width: 88vw;
-  margin: auto;
-  padding-top: 5px;
-  padding-bottom: -5px;
-  align-items: center;
-  /* justify-content: center; */
-  border-radius: 15px;
-  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
-}
-
 .Clickable-field{
   display: flex;
   background-color: var(--hora_aula_field);
@@ -137,92 +122,15 @@
   background-color: var(--button_base_color_disabled);
  }
 
-.dropbox{
-  /* display: flex; */
-  background-color: var(--hora_aula_field);
-  padding-left: 5px;
-  /* border-radius: 15px; */
-
-  height: 5vh;
-  width: 13vw;
-  margin: 10px 11px 10px 11px;
-  align-items: center;
-  justify-content: center;
-  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
-}
-
-.Text-Box{
-  display: flex;
-  border-radius: 5px;
-  height: 6vh;
-  width: 10.8vw;
-  margin: 10px 11px 10px 11px;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-}
 
 /* TODO: verificar esses estilos */
 
 
-.container{
-  display: flow-root;
-  background-color: var(--container_grid_aulas);
-  min-height: 100vh;
-  width: 90vw;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-}
-
-.hora_aula{
-  display: flex;
-  background-color: var(--hora_aula_field);
-  border-radius: 15px;
-  height: 6vh;
-  width: 10.8vw;
-  margin: 10px 11px 10px 11px;
-  border-color: skyblue;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-}
-.titles{
-  /* display: flex; */
-  /* background-color: blue; */
-  /* border-radius: 15px; */
-  /* height: 6vh; */
-  /* width: 10.8vw; */
-  /* margin: auto; */
-  margin: 0px 11px 0px 11px;
-  /* margin: 10px 8px 8px 8px; */
-  /* border-color: skyblue; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5); */
-  /* position: relative; */
-  /* left: 1vw; */
-}
-
-.hora_aula.days{
-  display: inline-flex;
-  background-color: var(--hora_aula_label_field);
-  margin-top: 12px;
-  width: 10.8vw;
-
-}
 
 h1{
   margin-bottom: 25px;
 }
 
-.container_columns{
-  display:inline-flex;
-  position: relative;
-  padding-left: 10px;
-}
 /* 
 .columns{
   display: flow-root;
@@ -237,4 +145,71 @@ h1{
   margin-top: 1px;
   width: 9.9vw;
 
+}
+
+/* Layout para tablets */
+
+.grid-container{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--waikawa-gray-950);
+  /* min-height: 100vh; */
+  width: 90vw;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.grid-content-container{
+  padding-left: 10px;
+  /* background-color: aliceblue; */ /* Para testes*/
+  margin: 5px 7px;
+}
+
+/* Layout para celulares */
+@media only screen and (max-width: 450px) {
+
+
+  /* .grid-container{
+    display: flex;
+    background-color: var(--waikawa-gray-950);
+    min-height: 100vh;
+    width: 90vw;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  } */
+
+
+  .grid-content-container{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    padding-left: 0;
+  }
+}
+
+/* Layout para desktops com tela acima de 1224px de largura */
+@media only screen and (min-width: 1224px) {
+
+  .grid-container{
+    display: flow-root;
+    background-color: var(--waikawa-gray-950);
+    min-height: 100vh;
+    width: 90vw;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  }
+
+  .grid-content-container{
+    display:inline-flex;
+    position: relative;
+  }
 }
