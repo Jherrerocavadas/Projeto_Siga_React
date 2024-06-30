@@ -21,6 +21,7 @@ export function Sidebar({children}) {
     <AccountDetailsAluno user={userDataResponse}></AccountDetailsAluno>
     <ul>
         <li> <Link to={"/"}>Página Inicial</Link></li>
+        <li> <Link to={"/matricula"}>Matrícula</Link></li>
         <li> <Link to={"/avisos"}>Avisos</Link></li>
         <li> <Link to={"/seu-horario"}>Seu Horário</Link></li>
         <li> <Link to={"/material-de-aula"}>Material de Aulas</Link></li>
