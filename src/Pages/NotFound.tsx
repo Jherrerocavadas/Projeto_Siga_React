@@ -12,7 +12,7 @@ export function NotFound({}) {
         <li> Verifique se você digitou o endereço da página corretamente</li>
         <li> Tente limpar o cache da página</li>
         </ul>
-            <span><a>Na dúvida? Vá para a </a><Link className="redirect" to={"/"}> Página inicial</Link></span>
+            <span>Na dúvida? Vá para a <Link className="redirect" to={"/"}> Página inicial</Link></span>
        
         
     </div>

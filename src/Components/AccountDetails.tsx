@@ -13,7 +13,7 @@ function AccountPhoto({ userPhoto }) {
 }
 
 export function AccountDetailsAluno({user}) {
-    console.log("USER:", user)
+    // console.log("USER:", user)
     return (
       <div>
         <div>

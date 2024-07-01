@@ -47,6 +47,8 @@ export function AuthProvider({children}){
             sessionStorage.setItem('@App:userPhotoBase64', response.data.fotoUsuario);
         })
         .catch((err) => {
+          //TODO: ERRO SE A API ESTIVER FORA DO AR
+          console.log("ERRO_CONNECTION_REFUSE",err)
           const modalError = {
             title: err.response.data.error,
             description: err.response.data.message,

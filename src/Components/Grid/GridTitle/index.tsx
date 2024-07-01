@@ -13,14 +13,14 @@ export const GridTitle = ({ horarioUsuario, diasSemana, index = 0 }) => {
   ) {
     if (isSmartPhone) {
       return (
-        <div className="titles">
+        <div className="titles" key="titulos_coluna_mobile_001">
           <TituloColuna id="cabecalhoHorarios" label={horarioUsuario} />
           <TituloColuna id={index} label={diasSemana[index].valor} />
         </div>
       );
     } else if (isTablet) {
       return (
-        <div className="titles">
+        <div className="titles" key="titulos_coluna_tablet_001">
           <TituloColuna id="cabecalhoHorarios" label={horarioUsuario} />
 
           {diasSemana.map((value, index) => (
@@ -31,7 +31,7 @@ export const GridTitle = ({ horarioUsuario, diasSemana, index = 0 }) => {
       );
     }
     return (
-      <div className="titles">
+      <div className="titles" key="titulos_coluna_desktop_001">
         <TituloColuna
           id="cabecalhoHorarios"
           label={"Horario - " + horarioUsuario}
