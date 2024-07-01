@@ -1,0 +1,101 @@
+:root {
+  --primary_button_bg_color: #839dd1;
+  --primary_button_color: #000;
+  --primary_button_hovered: #6a7fc1;
+  --primary_button_active: #6374ae;
+  --primary_button_disabled: #e7f0f8;
+  --primary_button_color_disabled: #9cb6dd;
+
+  --waikawa-gray-50: #f2f7fb;
+  --waikawa-gray-100: #e7f0f8;
+  --waikawa-gray-200: #d3e2f2;
+  --waikawa-gray-300: #b9cfe8;
+  --waikawa-gray-400: #9cb6dd;
+  --waikawa-gray-500: #839dd1;
+  --waikawa-gray-600: #6a7fc1;
+  --waikawa-gray-700: #6374ae;
+  --waikawa-gray-800: #4a5989;
+  --waikawa-gray-900: #414e6e;
+  --waikawa-gray-950: #262c40;
+}
+
+.btn {
+  margin: 13px auto 5px auto;
+  display: block;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  background-color: var(--waikawa-gray-950);
+  /* color: var(--primary_button_color); */
+  border-radius: 12px;
+  font-size: larger;
+  height: 40px;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  align-self: center;
+}
+
+.btn-header {
+  display: flex;
+  border-radius: 5px;
+  height: 6vh;
+  width: 90%;
+  margin: 10px 11px 10px 11px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  background-color: var(--waikawa-gray-600);
+  
+}
+
+.primary {
+  background-color: var(--waikawa-gray-500);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn:hover {
+  background-color: var(--primary_button_hovered);
+}
+
+.btn:disabled {
+  background-color: var(--waikawa-gray-400);
+  color: var(--waikawa-gray-950);
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.0);
+  transform: scale(1);
+}
+
+.btn-header:active {
+  transform: scale(0.96);
+}
+
+.btn-header:hover {
+  background-color: var(--primary_button_hovered);
+}
+
+.btn-header:disabled {
+  background-color: var(--waikawa-gray-300);
+  color: var(--waikawa-gray-950);
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.0);
+  transform: scale(1);
+}
+
+
+@media only screen and (min-width: 1224px) {
+
+    .btn-header {
+
+      width: 15.8vw;  
+      text-wrap: wrap;
+      font-size: large;
+    }
+  
+  
+}
