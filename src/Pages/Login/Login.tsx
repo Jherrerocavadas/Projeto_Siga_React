@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { ModalError } from "../../components/Modal";
+import { ModalInfo } from "../../components/Modal";
 import { useError } from "../../contexts/errors";
 import TextInput from "../../components/TextInput/TextInput";
 import { PiChalkboardTeacherThin, PiStudent } from "react-icons/pi";
@@ -17,12 +17,15 @@ export function LoginSelector() {
     <div className="login-selection-container">
       <h1>Realizar login como:</h1>
       <Button
+        btnKey="login_selection_professor"
         type="primary"
         label="Professor"
         action={() => navigate("/login/professor")}
+        disabled={true}
       />
 
       <Button
+      btnKey="login_selection_aluno"
         type="primary"
         label="Aluno"
         action={() => navigate("/login/aluno")}
@@ -55,7 +58,7 @@ export function LoginBase({ tipoUsuario }) {
         </div>
 
         {error && (
-          <ModalError
+          <ModalInfo
             title={error.title}
             description={error.description}
             closeLabel={error.closeLabel}
@@ -87,6 +90,7 @@ export function LoginBase({ tipoUsuario }) {
               className="form-field"
             />
             <Button
+              btnKey="submit"
               type="primary"
               label="Confirmar"
               disabled={!canSubmit}
