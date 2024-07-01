@@ -22,7 +22,7 @@ export function HoraAulaColumn({ labelsHorarioAula }) {
       <div className="grid-key-column-container">
         {labelsHorarioAula.map((value, index) => (
           <ElementGrid
-            key={index}
+          elementGridKey={index}
             bgColor={value.label === "Intervalo" ? null : wg700}
             label={value.label} />
         ))}

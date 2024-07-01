@@ -20,94 +20,32 @@
   --button_base_color:crimson;
   --button_hovered:green;
   --button_base_color_disabled: rgba(110, 117, 119, 0.829);
+
+  --primary_button_bg_color:#839dd1;
+  --primary_button_color:#000;
+  --primary_button_hovered: #6a7fc1;
+  --primary_button_active: #6374ae;
+  --primary_button_disabled:#e7f0f8;
+  --primary_button_color_disabled:#9cb6dd;
+
+  --waikawa-gray-50: #f2f7fb;
+--waikawa-gray-100: #e7f0f8;
+--waikawa-gray-200: #d3e2f2;
+--waikawa-gray-300: #b9cfe8;
+--waikawa-gray-400: #9cb6dd;
+--waikawa-gray-500: #839dd1;
+--waikawa-gray-600: #6a7fc1;
+--waikawa-gray-700: #6374ae;
+--waikawa-gray-800: #4a5989;
+--waikawa-gray-900: #414e6e;
+--waikawa-gray-950: #262c40;
+
+
 } 
-
-
-.Selecao-materia-field{
-  background-color: var(--materia_field_bg_color);
-  display: flex;
-  min-height: 10vh;
-  width: 86vw;
-  margin: auto;
-  margin-left: 1.5vw;
-  /* padding-left: 10px; */
-  /* margin-top: 5px; */
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-}
-
-
-.Materias-especiais-field{
-  background-color: var(--materia_especial_field_bg_color);
-  display: flex;
-  min-height: 10vh;
-  width: 86vw;
-  margin: auto;
-  margin-left: 1.5vw;
-  /* padding-left: 10px; */
-  margin-top: 5px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-  
-
-}
-
-.Materia-disponivel{
-
-  display: inline-flex;
-  background-color: crimson;
-  border-radius: 15px;
-  height: 6vh;
-  width: 10.8vw;
-  margin: 10px 8px 10px 8px;
-  border-color: skyblue;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-  
-}
-
-.Materia-disponivel.button{
-
-  display: inline-flex;
-  background-color: var(--button_base_color);
-  border-radius: 15px;
-  border-style: none; /**/
-  height: 6vh;
-  width: 10.8vw;
-  margin: 10px 11px 10px 11px;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
-  font-size:14.5px;
-
-  display: flex;
-
-
-
-}
-
-.Materia-disponivel.button:active{
-  transform: scale(.96)
- }
- 
-
-.Materia-disponivel.button:hover{
- background-color: var(--button_hovered);
-}
-
-.Materia-disponivel.button:disabled{
-  background-color: var(--button_hovered);
- }
- 
 
 .Clickable-field{
   display: flex;
-  background-color: var(--hora_aula_field);
+  background-color: var(--waikawa-gray-600);
   border-radius: 15px;
   height: 6vh;
   width: 10.8vw;
@@ -145,7 +83,8 @@ h1{
 .grid-container{
   display: flex;
   flex-direction: column;
-  background-color: var(--waikawa-gray-950);
+  background-color: var(--waikawa-gray-900);
+  /* background-color: var(--waikawa-gray-950); */
   /* min-height: 100vh; */
   width: 90vw;
   margin: auto;
@@ -181,7 +120,7 @@ h1{
   .grid-container{
     display: flow-root;
     background-color: var(--waikawa-gray-950);
-    min-height: 100vh;
+    min-height: 47vh;
     width: 90vw;
     margin: auto;
     align-items: center;

@@ -1,46 +1,55 @@
-import React, { useState } from 'react'
-import GridHeader from './GridHeader';
-import { GridTitle } from './GridTitle';
-import ArrowButton from '../ArrowButton';
-import { HoraAulaColumn } from './HoraAulaColumn';
-import { GridDisciplinas } from './GridAulas';
-import { MateriasEspeciaisField } from '../SelecaoMateriaField';
-import { wg50 } from '../../styles/variables';
-import EmptyResultGrid from './EmptyResultGrid';
+import React, { useState } from "react";
+import GridHeader from "./GridHeader";
+import { GridTitle } from "./GridTitle";
+import ArrowButton from "../ArrowButton";
+import { HoraAulaColumn } from "./HoraAulaColumn";
+import { GridDisciplinas, GridDisciplinasMatricula } from "./GridAulas";
+import {
+  MateriasEspeciaisField,
+  MateriasSelectionGrid,
+} from "../MateriasSelectionGrid";
+import { wg50 } from "../../styles/variables";
+import EmptyResultGrid from "./EmptyResultGrid";
 
 export default function GridCommon({
   headerItens,
-    periodo,
-    diasSemana,
-    horarioAula,
-    disciplinasCursos,
-    semestre,
-    disciplinasEspeciais,
-    isMobile
+  periodo,
+  diasSemana,
+  horarioAula,
+  disciplinasCursos,
+  semestre,
+  disciplinasEspeciais,
+  isMobile,
+  isMatricula = false,
+  dadosMatricula = null
 }) {
-
-/* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
+  /* --------------------------------------------< Ambiente Mobile >-------------------------------------------- */
   const [indexDiaSemana, setIndexDiaSemana] = useState(0); // Indicador do dia da semana que está sendo visualizado
   const diasSemanasSize = diasSemana.length - 1;
 
   /*------------------------------------------------------------------------------------------------------------*/
-  if(horarioAula.length === 0){
-    return (<div className="grid-container">
-      <GridHeader headerItens={headerItens} />
 
-      <EmptyResultGrid/>
+  //Converter valor do semestre para Int caso ele tenha vindo como String
+  semestre = parseInt(semestre);
+  if (horarioAula.length === 0) {
+    return (
+      <div className="grid-container">
+        <GridHeader headerItens={headerItens} />
 
-      <MateriasEspeciaisField
-        disciplinasEspeciais={disciplinasEspeciais}
-        isClickable={false}
-      />
-    </div>
-  );
+        <EmptyResultGrid />
+
+        <MateriasEspeciaisField
+          disciplinasEspeciais={disciplinasEspeciais}
+          isClickable={isMatricula}
+        />
+      </div>
+    );
   }
 
+
   return (
-    <div className="grid-container">
-      <GridHeader headerItens={headerItens} />
+    <div className="grid-container" key={"grid_container"+ isMatricula? "_matricula": "_horario_aula"}>
+      <GridHeader headerItens={headerItens}/>
 
       <GridTitle
         horarioUsuario={periodo.value}
@@ -59,13 +68,27 @@ export default function GridCommon({
         />
         <HoraAulaColumn labelsHorarioAula={horarioAula} />
 
-        <GridDisciplinas
+        {isMatricula ? (
+          <GridDisciplinasMatricula
           diaDisciplina={diasSemana}
           qtdAulasDias={horarioAula.length}
           disciplinas={disciplinasCursos}
           semestre={semestre}
+          disciplinasMatriculadas={dadosMatricula.disciplinasMatriculadas}
+          setDisciplinasMatriculadas={dadosMatricula.setDisciplinasMatriculadas}
+          setDisciplinasToSelect={dadosMatricula.setDisciplinasParaSelecionar}
+          isMatriculaPorSemestre={dadosMatricula.isMatriculaPorSemestre}
           index={indexDiaSemana}
         />
+        ) : (
+          <GridDisciplinas
+            diaDisciplina={diasSemana}
+            qtdAulasDias={horarioAula.length}
+            disciplinas={disciplinasCursos}
+            semestre={semestre}
+            index={indexDiaSemana}
+          />
+        )}
         <ArrowButton
           direction={"right"}
           display={isMobile && horarioAula.length > 0}
@@ -80,10 +103,15 @@ export default function GridCommon({
         />
       </div>
 
+      {isMatricula? <MateriasSelectionGrid
+        disciplinasParaSelecionar={dadosMatricula.disciplinasParaSelecionar}
+      />: <></>}
+
       <MateriasEspeciaisField
         disciplinasEspeciais={disciplinasEspeciais}
-        isClickable={false}
+        isClickable={isMatricula}
+        action={isMatricula? ()=> {console.log("EPA")}: null}
       />
     </div>
-  )
+  );
 }

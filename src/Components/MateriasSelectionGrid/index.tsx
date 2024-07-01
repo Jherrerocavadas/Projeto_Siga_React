@@ -1,7 +1,8 @@
-import React from "react";
-import { ElementGrid } from "./Grid/ElementGrid";
 
-export function SelecaoMateriaField ({ value=null, disciplinasParaSelecionar, isClickable=true, action=undefined }){
+import { ElementGrid } from "../Grid/ElementGrid";
+import "./MateriasSelectionGridStyle.css"
+
+export function MateriasSelectionGrid ({ value=null, disciplinasParaSelecionar, isClickable=true, action=undefined }){
   // const count = 2;
   // const [selectedMateria, SetSelectedMateria] = useState("ss");
 
@@ -19,9 +20,10 @@ export function SelecaoMateriaField ({ value=null, disciplinasParaSelecionar, is
 
 
   // if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar != []) {
-  if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar.length < 1) {
+    if (disciplinasParaSelecionar !== undefined && disciplinasParaSelecionar !== null && disciplinasParaSelecionar.length > 0) {
+    console.log("CADE VOCÊ?", disciplinasParaSelecionar)
     return (
-      <div className="Selecao-materia-field">
+      <div className="materias-selection-grid-container">
         {disciplinasParaSelecionar}
            
           
@@ -47,10 +49,10 @@ export function MateriasEspeciaisField({ disciplinasEspeciais, action=undefined,
 
   if(disciplinasEspeciais !== null && disciplinasEspeciais !== undefined)
    { return (
-      <div className="Materias-especiais-field">
+      <div className="materias-especiais-grid-container">
         {disciplinasEspeciais.map((value, index) => (
           <ElementGrid
-            key={value.codDisciplina}
+          elementGridKey={value.codDisciplina}
             label={
               value.nomeDisciplina.length > 12
                 ? value.siglaDisciplina

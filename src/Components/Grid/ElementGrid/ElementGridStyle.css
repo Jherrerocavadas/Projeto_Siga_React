@@ -1,3 +1,17 @@
+.grid-element.btn :active{
+  transform: scale(.96)
+ }
+ 
+
+.grid-element.btn :hover{
+ background-color: "yellow";
+}
+
+.grid-element.btn :disabled{
+  background-color: var(--button_hovered);
+ }
+ 
+
 
 
 /* Layout para tablets */

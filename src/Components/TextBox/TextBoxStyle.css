@@ -1,7 +1,6 @@
-
 /* Layout para tablets */
 .textbox {
-  background-color: var(--waikawa-gray-600);
+  background-color: var(--waikawa-gray-300);
   display: flex;
   border-radius: 5px;
   height: 6vh;
@@ -12,20 +11,19 @@
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
-
 /* Layout para celulares */
 @media only screen and (max-width: 450px) {
   .textbox {
     text-align: center;
+    color: var(--waikawa-gray-700);
   }
-  
-
 }
 
 /* Layout para desktops com tela acima de 1224px de largura */
 @media only screen and (min-width: 1224px) {
   .textbox {
-    background-color: var(--waikawa-gray-600);
+    background-color: var(--waikawa-gray-700);
+    font-size: large;
     display: flex;
     border-radius: 5px;
     height: 6vh;
@@ -35,5 +33,4 @@
     justify-content: center;
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
   }
-  
 }

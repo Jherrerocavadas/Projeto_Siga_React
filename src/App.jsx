@@ -1,7 +1,6 @@
 // import './styles/App.css';
 import './styles/global.css';
 import './styles/BurgerMenu.css';
-import './styles/ButtonStyle.css'
 
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes"

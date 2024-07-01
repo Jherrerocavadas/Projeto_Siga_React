@@ -1,7 +1,7 @@
 import { complementTextColor } from '../../../utils'
 import "./ElementGridStyle.css"
 
-export function ElementGrid ({key, label, bgColor=undefined, isClickable=false, action=null, tamanho= "10.8vw"}) {
+export function ElementGrid ({elementGridKey, label, bgColor=undefined, isClickable=false, action=null}) {
 
     //TODO: PENSAR EM COMO TRATAR ESSE BGCOLOR
     let style;
@@ -15,7 +15,7 @@ export function ElementGrid ({key, label, bgColor=undefined, isClickable=false, 
 
     if(isClickable){
         return (
-                <button className="Materia-disponivel button" style={style} onClick={action} key={key}>
+                <button className="grid-element btn" style={style} onClick={action} key={elementGridKey}>
                 {label}
                 </button>
                 
@@ -30,6 +30,6 @@ export function ElementGrid ({key, label, bgColor=undefined, isClickable=false, 
     //     )    
     // }
     return (
-        <p className="grid-element" style={style} key={key}>{label}</p>
+        <p className="grid-element" style={style} key={elementGridKey}>{label}</p>
     )
 }
