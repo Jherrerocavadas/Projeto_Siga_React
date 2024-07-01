@@ -9,28 +9,68 @@ import { listarDisciplinasPorCurso } from "../../api/DisciplinaCurso/disciplinaC
 import { IHeaderItemList } from "../../components/Grid/GridHeader";
 import { useMediaQuery } from "react-responsive";
 import { IDropdownParametersList } from "../../components/Dropdown";
+import { useAuth } from "../../contexts/auth";
 import GridCommon from "../../components/Grid";
+import { ModalAction } from "../../components/Modal";
+import { useNavigate } from "react-router";
 
 function realizarMatriculaAluno(
   numMatriculaAluno,
   disciplinas,
-  setMatriculaConfirmada
+  setMatriculaConfirmada,
+  setModalInfo
 ) {
   setMatriculaConfirmada(true);
-  
+  localStorage.setItem("@Matricula:indMatriculaConfirmada", "true");
+  sessionStorage.removeItem("@Matricula:disciplinaMatriculadas")
+
+  console.log(
+    "MATRICULA DAS DISCIPLINAS: ",
+    disciplinas,
+    "REALIZADAS PARA O ALUNO ",
+    numMatriculaAluno
+  );
+
+  setModalInfo(true);
 }
 
-export function Matricula() {
+//Verificar se uma matrícula já foi realizada e está tentando ser realizada novamente
+function checarMatriculaRealizada() {
+  const indMatriculaRealizada = localStorage.getItem(
+    "@Matricula:indMatriculaConfirmada"
+  );
+  const indMatriculaRealizadaBanco = false;
 
+  console.log("checagem de matricula realizada");
+
+  //Checar se os dados da matrícula realizada estão salvos no localStorage
+  //(Caso o usuário tente recarregar a página para fazer a matrícula novamente)
+  if (indMatriculaRealizada && indMatriculaRealizada.toLowerCase() === "true") {
+    console.log("checagem de matricula realizada: REALIZADA ");
+    return true;
+  }
+  //Caso os dados não estejam no localStorage (Por exemplo, usuário acessando de outro dispositivo)
+  //Verifica no banco se a matrícula foi efetivada.
+  else if (indMatriculaRealizadaBanco) {
+    console.log("checagem de matricula realizada: REALIZADA VIA BANCO ");
+    return true;
+  }
+  //Se não tiver efetivada em nenhum dos locais, não permite realizar a matrícula
+  console.log("checagem de matricula realizada: NÃO REALIZADA ");
+  return false;
+}
+export function Matricula() {
+  const { userDataResponse } = useAuth();
+  const navigate = useNavigate();
   //Vão vir do cadastro do usuário
 
   /* ---------------------------------------------<Dados Mockados>--------------------------------------------- */
-  const [periodo, setPeriodo] = useState({ value: "Manhã", cod: "MANHA" }); //Enum Periodo
+  const periodo = { value: "Manhã", cod: "MANHA" }; //Enum Periodo
   // const siglaCurso = "DMD" //Puxar do cadastro do aluno ou da seleção
-  const codFaculdade = "FAT128" //puxar do cadastro do aluno ou da seleção
-  const [semestre, setSemestre] = useState(1) //puxar do período selecionado
-  const curso = { siglaCurso: "DMD", qtdSemestres: 6 } // puxar do curso (pelo siglaCurso) 
-  const aluno = null;
+  const { codFaculdade } = userDataResponse.dadosComplementares.faculdade; //puxar do cadastro do aluno ou da seleção
+  const [semestre, setSemestre] = useState(1); //puxar do período selecionado
+  const { curso } = userDataResponse.dadosComplementares;
+  const numMatriculaAluno = userDataResponse.dadosComplementares.numMatricula;
 
   /*------------------------------------------------------------------------------------------------------------*/
 
@@ -47,7 +87,9 @@ export function Matricula() {
 
   const [isMatriculaPorSemestre, setIsMatriculaPorSemestre] = useState(false);
 
-  const [isMatriculaConfirmada, setMatriculaConfirmada] = useState(false); // Confirmação de matrícula
+  const [isMatriculaConfirmada, setMatriculaConfirmada] = useState(
+    checarMatriculaRealizada()
+  ); // Confirmação de matrícula
 
   const dropdownSemestre: IDropdownParametersList = [];
 
@@ -55,6 +97,9 @@ export function Matricula() {
   const isMobile = useMediaQuery({ query: "(max-width: 450px)" });
 
   /*------------------------------------------------------------------------------------------------------------*/
+
+  const [modal, setModal] = useState<boolean>(null);
+  const [modalInfo, setModalInfo] = useState<boolean>(checarMatriculaRealizada());
 
   for (let semestre = 1; semestre <= curso.qtdSemestres; semestre++) {
     dropdownSemestre.push({
@@ -116,7 +161,11 @@ export function Matricula() {
       btnItem: {
         type: "header-primary",
         isSubmit: true,
-        action: disciplinasMatriculadas.length == 0? () => {realizarMatriculaAluno(aluno, disciplinasMatriculadas, setMatriculaConfirmada)} : null,
+        action: !isMatriculaConfirmada
+          ? () => {
+              setModal(true);
+            }
+          : null,
         disabled: isMatriculaConfirmada || disciplinasMatriculadas.length === 0,
       },
 
@@ -196,7 +245,34 @@ export function Matricula() {
   };
 
   return (
-    
+    <div>
+      {modalInfo && (
+        <ModalAction
+          title={"Matrícula realizada"}
+          description={"Sua matrícula foi efetivada!"}
+          closeLabel={"Fechar"}
+          action={()=>navigate("/")}
+          setClose={setModalInfo}
+        />
+      )}
+      {modal && (
+        <ModalAction
+          title={"Matricular disciplinas"}
+          description={"Deseja confirmar a matrícula das disciplinas?"}
+          okLabel={"Sim"}
+          closeLabel={"Cancelar"}
+          action={() =>
+            realizarMatriculaAluno(
+              numMatriculaAluno,
+              disciplinasMatriculadas,
+              setMatriculaConfirmada,
+              setModalInfo
+            )
+          }
+          setClose={setModal}
+        />
+      )}
+
       <GridCommon
         headerItens={headerItens}
         periodo={periodo}
@@ -209,5 +285,6 @@ export function Matricula() {
         isMatricula={true}
         dadosMatricula={dadosMatricula}
       />
+    </div>
   );
 }

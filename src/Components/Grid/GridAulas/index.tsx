@@ -15,9 +15,6 @@ export function GridDisciplinas({
   const isSmartPhone = useMediaQuery({ query: "(max-width: 450px)" });
   const isTablet = useMediaQuery({ query: "(max-width: 1224px)" });
 
-  //Converter valor do semestre para Int caso ele tenha vindo como String
-  semestre = parseInt(semestre);
-
   if (isSmartPhone) {
     //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
     return (
@@ -106,7 +103,7 @@ export function ColunaDiaAula({
 
       materiasField.push(
         <ElementGrid
-          key={idColuna + linhasAula}
+          elementGridKey={idColuna + linhasAula}
           label={label}
           bgColor={bgColor}
         />
@@ -167,7 +164,6 @@ export function GridDisciplinasMatricula({
       />
     );
   }
-
   //cria todo o mapeamento do dia (vertical), depois cria as linhas (horizontal)
   return (
     //ColunaDiaAula vai criar a div de colunas
@@ -201,25 +197,107 @@ export function ColunaDiaAulaMatricula({
   setDisciplinasToSelect,
   isMatriculaPorSemestre,
 }) {
+  
+
+  //Salva as disciplinas do horário selecionado
   function handleDisciplinasToSelect(value) {
     if (setDisciplinasToSelect) {
       setDisciplinasToSelect(null); //zerar o array
       // console.log("Value: ", value)
       setDisciplinasToSelect(value);
+      // console.log("disciplina do horário selecionado", value)
       // alert("disciplinas Selecionadas!");
     } else {
       alert("Sem ação para realizar!");
     }
   }
 
+
+  //efetiva a matrícula das disciplinas selecionadas
   function handleDisciplinasMatriculadas(value) {
     if (setDisciplinasMatriculadas) {
+    // console.log("DISCIPLINA MATRICULADA: ", value)
       setDisciplinasMatriculadas(value);
+      sessionStorage.setItem("@Matricula:disciplinaMatriculadas", value)
     } else {
       alert("Sem ação para realizar!");
     }
   }
 
+  //Insere as disciplinas na seleção "pré-matrícula"
+  function handleDisciplinasSelection(value){
+    
+    if (disciplinasMatriculadas.includes(value))
+      alert("Essa disciplina já está na lista de matrícula!");
+    else if (
+      //Essa verificacao Tem que ser das mesmas disciplinas
+      //Objeto das disciplinas Matriculadas
+      // Comparar: diasDeAula e horasAula
+      // Verificar Objeto value (matéria a ser matriculada)
+      verifyArrObj(
+        disciplinasMatriculadas,
+        "diasDeAula",
+        value.diasDeAula,
+        "eachValue"
+      ) &&
+      verifyArrObj(
+        disciplinasMatriculadas,
+        "horasAula",
+        value.horasAula,
+        "eachValue"
+      )
+
+      // verifyArrMultipleKeys(disciplinasMatriculadas, value, [{chave: "horasAula", valor: "numeroAula"},
+      // {chave: "diasDeAula", valor: ""}])
+    ) {
+      alert("Disciplinas com horários conflitantes");
+
+      console.log(
+        "DiasAula: ",
+        verifyArrObj(
+          disciplinasMatriculadas,
+          "diasDeAula",
+          value.diasDeAula,
+          "eachValue"
+        )
+      );
+      console.log(
+        "HorasAula: ",
+        verifyArrObj(
+          disciplinasMatriculadas,
+          "horasAula",
+          value.horasAula,
+          "eachValue"
+        )
+      );
+      let posMatricula = getPositionOfMateriaConflitante(
+        disciplinasMatriculadas,
+        value
+      );
+
+      //Remove disciplina conflitante e coloca a outra (replace)
+      let tempDisciplinasMatriculadas = disciplinasMatriculadas;
+      if (posMatricula != null && posMatricula !== undefined) {
+        tempDisciplinasMatriculadas.splice(posMatricula, 1, value);
+        handleDisciplinasMatriculadas(tempDisciplinasMatriculadas);
+      }
+
+      // console.log("newDisciplinaMatriculada", disciplinasMatriculadas)
+    } else {
+      let tempDisciplinasMatriculadas = disciplinasMatriculadas;
+
+      tempDisciplinasMatriculadas.push(value);
+      handleDisciplinasMatriculadas(tempDisciplinasMatriculadas);
+
+      console.log(
+        "disciplinasMatriculadas: ",
+        tempDisciplinasMatriculadas
+      );
+    }
+
+  }
+
+  //Coloca as disciplinas no lugar
   function mapDisciplinasPorCampo(
     disciplinas,
     linhasAula,
@@ -250,91 +328,23 @@ export function ColunaDiaAulaMatricula({
 
         disciplinasToSelect.push(
           <ElementGrid
-            key={value.disciplina.codDisciplina}
+            elementGridKey={value.disciplina.codDisciplina}
             label={label}
             bgColor={bgColor}
             isClickable={true}
             // colocar os dados da disciplina no lugar
-            action={(e) => {
-              if (disciplinasMatriculadas.includes(value))
-                alert("Essa disciplina já está na lista de matrícula!");
-              else if (
-                //Essa verificacao Tem que ser das mesmas disciplinas
-                //Objeto das disciplinas Matriculadas
-                // Comparar: diasDeAula e horasAula
-                // Verificar Objeto value (matéria a ser matriculada)
-                verifyArrObj(
-                  disciplinasMatriculadas,
-                  "diasDeAula",
-                  value.diasDeAula,
-                  "eachValue"
-                ) &&
-                verifyArrObj(
-                  disciplinasMatriculadas,
-                  "horasAula",
-                  value.horasAula,
-                  "eachValue"
-                )
-
-                // verifyArrMultipleKeys(disciplinasMatriculadas, value, [{chave: "horasAula", valor: "numeroAula"},
-                // {chave: "diasDeAula", valor: ""}])
-              ) {
-                alert("Disciplinas com horários conflitantes");
-
-                console.log(
-                  "DiasAula: ",
-                  verifyArrObj(
-                    disciplinasMatriculadas,
-                    "diasDeAula",
-                    value.diasDeAula,
-                    "eachValue"
-                  )
-                );
-                console.log(
-                  "HorasAula: ",
-                  verifyArrObj(
-                    disciplinasMatriculadas,
-                    "horasAula",
-                    value.horasAula,
-                    "eachValue"
-                  )
-                );
-                let posMatricula = getPositionOfMateriaConflitante(
-                  disciplinasMatriculadas,
-                  value
-                );
-
-                //Remove disciplina conflitante e coloca a outra (replace)
-                let tempDisciplinasMatriculadas = disciplinasMatriculadas;
-                if (posMatricula != null && posMatricula !== undefined) {
-                  tempDisciplinasMatriculadas.splice(posMatricula, 1, value);
-                  handleDisciplinasMatriculadas(tempDisciplinasMatriculadas);
-                }
-
-                // console.log("newDisciplinaMatriculada", disciplinasMatriculadas)
-              } else {
-                let tempDisciplinasMatriculadas = disciplinasMatriculadas;
-
-                tempDisciplinasMatriculadas.push(value);
-                handleDisciplinasMatriculadas(tempDisciplinasMatriculadas);
-
-                console.log(
-                  "disciplinasMatriculadas: ",
-                  tempDisciplinasMatriculadas
-                );
-              }
-            }}
+            action={(e) => {handleDisciplinasSelection(value)}}
           />
         );
       }
-      return value;
+      return disciplinasToSelect;
     });
 
     // TODO: Inserir uma caixa de disciplina que "zera" o estado da disciplina na matriz
-    if (disciplinasToSelect?.length === 0) {
+    if (disciplinasToSelect?.length == 0) {
       disciplinasToSelect.push(
         <ElementGrid
-          key={"SemDiscIndicator"}
+          elementGridKey={"SemDiscIndicator"}
           label={"Sem disciplinas disponíveis"}
           bgColor={"#545454"}
         />
@@ -368,19 +378,21 @@ export function ColunaDiaAulaMatricula({
         label = "Intervalo";
         materiasField.push(
           <ElementGrid
-            key={idColuna + linhasAula}
+            elementGridKey={idColuna + linhasAula}
             label={label}
             bgColor={bgColor}
           />
         );
       } else {
         //Se tiver disciplinas
-        if (disciplinasMatriculadas?.length !== 0) {
-          disciplinasMatriculadas.map((value, index) => {
+        if (disciplinasComHoraAula?.length !== 0) {
+          disciplinasComHoraAula.map((value, index) => {
             if (
               value.diasDeAula.includes(idColuna) &&
               verifyArrObj(value.horasAula, "numeroAula", linhasAula)
+              && value.semestre === semestre
             ) {
+              // console.log("E AQUI?: ", value)
               label =
                 value.disciplina.nomeDisciplina.length > 12
                   ? value.disciplina.siglaDisciplina
@@ -391,19 +403,18 @@ export function ColunaDiaAulaMatricula({
                   ? value.disciplina.corDisciplina
                   : bgColor;
             }
-            return value;
+
           });
         }
 
         //Se não tiver, vai pular o if e inserir caixa vazia
         materiasField.push(
           <ElementGrid
-            key={idColuna + linhasAula}
+            elementGridKey={idColuna + linhasAula}
             label={label}
             bgColor={bgColor}
             isClickable={true}
             action={(e) => {
-              console.log(e.target.value);
               handleDisciplinasToSelect(
                 mapDisciplinasPorCampo(
                   disciplinasComHoraAula,
